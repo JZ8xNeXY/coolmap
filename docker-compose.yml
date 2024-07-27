@@ -1,0 +1,10 @@
+services:
+  next:
+    build:
+      dockerfile: ./next/Dockerfile
+    tty: true
+    stdin_open: true
+    volumes:
+      - ./next:/app
+    ports:
+      - "8000:3000"
