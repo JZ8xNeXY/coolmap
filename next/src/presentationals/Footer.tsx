@@ -20,7 +20,7 @@ const Footer = () => {
           }}
         ></Box>
         <Box sx={{ textAlign: 'center', mt: 2 }}>
-          Copyright © Quick Clean Restroom Map All rights reserved.
+          Copyright © CoolShelter Map All rights reserved.
         </Box>
       </Container>
     </AppBar>

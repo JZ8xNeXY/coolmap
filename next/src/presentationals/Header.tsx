@@ -105,13 +105,14 @@ const Header: React.FC<HeaderProps> = ({
                     },
                   }}
                 >
-                  <Image
+                  <Box>CoolShelter Map</Box>
+                  {/* <Image
                     src="/headerlogo.png"
                     alt="logo"
                     width={200}
                     height={50}
                     prefix="false"
-                  />
+                  /> */}
                 </Box>
               </Link>
             </Box>
