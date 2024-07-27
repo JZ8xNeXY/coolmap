@@ -8,7 +8,7 @@ import {
   IconButton,
   Drawer,
 } from '@mui/material'
-import Image from 'next/image'
+// import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import AddSimpleRestroomContainer from '@/containers/AddSimpleRestroomContainer'

@@ -2,7 +2,7 @@
 import CloseIcon from '@mui/icons-material/Close'
 import { Box, Button, Modal, Typography } from '@mui/material'
 import React from 'react'
-import buttonStyle from '@/styles/buttonStyle'
+// import buttonStyle from '@/styles/buttonStyle'
 import changeFontSize from '@/styles/changeFontSize'
 import {
   nursingRoomStyle,
@@ -41,7 +41,7 @@ interface DisplayModalWindowProps {
 }
 
 const DisplayModalWindow: React.FC<DisplayModalWindowProps> = ({
-  user,
+  // user,
   openModalWindow,
   closeModalWindow,
   name,
