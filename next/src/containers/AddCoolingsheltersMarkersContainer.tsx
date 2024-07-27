@@ -15,23 +15,23 @@ interface Restroom {
   id: number
   name: string
   address: string
-  content: string
   latitude: number
   longitude: number
-  createdAt: string
-  nursingRoom: boolean
-  anyoneToilet: boolean
-  diaperChangingStation: boolean
-  powderCorner: boolean
-  strollerAccessible: boolean
-  evaluation: number
+  opening_hours: string
+  has_water_server: boolean
+  has_desk: boolean
+  has_chair: boolean
+  has_power_outlet: boolean
+  has_tv: boolean
+  capacity: number
+  remarks: string
   image: string
 }
 
 const AddMarkersContainer: NextPage<AddMarkersProps> = ({ map }) => {
   //supabaseからの読込
   const fetchPosts = async () => {
-    const { data, error } = await supabase.from('posts').select('*')
+    const { data, error } = await supabase.from('coolingshelters').select('*')
     if (error) {
       throw new Error(error.message)
     }
