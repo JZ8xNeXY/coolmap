@@ -46,8 +46,8 @@ export const userGeoLocation = ({
         }
       },
       async () => {
-        // GPS機能で現在地を取得できない場合、東京駅の位置を使用
-        const tokyoStationPos = { lat: 35.681236, lng: 139.767125 }
+        // GPS機能で現在地を取得できない場合、三鷹市役所の位置を使用
+        const mitakaPos = { lat: 35.682839, lng: 139.559635 }
 
         // userPosImg をここでも作成
         userPosImg = document.createElement('img')
@@ -62,16 +62,16 @@ export const userGeoLocation = ({
 
         new AdvancedMarkerElement({
           map,
-          position: tokyoStationPos,
+          position: mitakaPos,
           title: 'Your Location',
           content: userPosImg,
           zIndex: 1,
         })
 
-        setCurrentUserPos(tokyoStationPos)
+        setCurrentUserPos(mitakaPos)
 
         if (map) {
-          map.setCenter(tokyoStationPos)
+          map.setCenter(mitakaPos)
         }
       },
     )
