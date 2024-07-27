@@ -1,9 +1,9 @@
 import { Box, Container } from '@mui/material'
 import type { NextPage } from 'next'
 import { useEffect, useState } from 'react'
-import AddMarkersContainer from '@/containers/AddMarkersContainer'
+import AddCoolingshelterMarkersContainer from '@/containers/AddCoolingsheltersMarkersContainer'
 import AddRestroomContainer from '@/containers/AddRestroomContainer'
-import { RestroomProvider } from '@/context/RestRoomContext'
+import { CoolingshelterProvider } from '@/context/CoolingshelterContext'
 import { SessionProvider } from '@/context/SessionContext'
 import { RightClickMapHandler } from '@/utils/RightClickMapHandler'
 import { loadGoogleMapsAPI } from '@/utils/loadGoogleMapsAPI'
@@ -33,14 +33,14 @@ const Index: NextPage = () => {
     <>
       <Container maxWidth="xl">
         <SessionProvider>
-          <RestroomProvider>
-            <AddMarkersContainer map={map} />
+          <CoolingshelterProvider>
+            <AddCoolingshelterMarkersContainer map={map} />
             <AddRestroomContainer
               open={openAddRestroomModal}
               onClose={() => setOpenAddRestroomModal(false)}
               coords={coords}
             />
-          </RestroomProvider>
+          </CoolingshelterProvider>
         </SessionProvider>
         <Box id="map" style={{ height: '80vh', width: '100%' }}></Box>
         <Box id="infoPanel"></Box>

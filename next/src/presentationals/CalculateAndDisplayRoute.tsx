@@ -59,8 +59,8 @@ const CalculateAndDisplayRoute: NextPage<CalculateAndDisplayRouteProps> = (
 
             // InfoWindowを作成し、ルートの中間地点に所要時間とリンクを表示
             durationInfoWindow = new google.maps.InfoWindow({
-              content: `<div style="margin-bottom: 12px; text-align:center">
-              トイレまで歩いて約 <strong>${durationText}</strong></div>
+              content: `<div style="margin-bottom: 12px; text-align:left">
+              徒歩 約 <strong>${durationText}</strong></div>
               <div style="text-align:center">
                 <a href="${googleMapsLink}" target="_blank" 
                 style="display: inline-block; 

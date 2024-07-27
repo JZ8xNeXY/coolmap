@@ -4,7 +4,6 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import { mutate } from 'swr'
 import { supabase } from '../utils/supabase'
 import AddRestroom from '@/presentationals/AddRestroom'
-import { chatgpt, encodeImageToBase64 } from '@/utils/chatgptAPI'
 
 interface AddRestroomFormData {
   name: string
@@ -55,8 +54,6 @@ const AddRestroomContainer: React.FC<AddRestroomProps> = ({
   const [imageData, setImageData] = useState('')
   const [imageToiletCleanness, setImageToiletCleanness] = useState<number>(0)
   const [warningImageMessage, setWarningImageMessage] = useState('')
-  const [confirmImageMessage, setConfirmMessage] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
   const [imageUrl, setImageUrl] = useState<string | null>(null) //S3のURL
 
   useEffect(() => {
@@ -67,10 +64,7 @@ const AddRestroomContainer: React.FC<AddRestroomProps> = ({
     const files = e.target.files
     if (!files || files.length <= 0) return
     showImageFileName(files)
-    const isOk = await onChangeEvaluateToiletCleanness(files)
-    if (isOk) {
-      await onChangeUploadFileToS3(files)
-    }
+    onChangeUploadFileToS3(files)
   }
 
   // ref関数 react-hook-formが管理できるようになる
@@ -104,33 +98,6 @@ const AddRestroomContainer: React.FC<AddRestroomProps> = ({
     reset()
     resetImageFile()
     onClose()
-  }
-
-  const evaluateToiletCleanness = async (file: File) => {
-    setIsLoading(true)
-    const imageBase64 = await encodeImageToBase64(file)
-    const result = await chatgpt(imageBase64)
-    setIsLoading(false)
-    if (result == 0) {
-      setWarningImageMessage('トイレの画像をアップロードしてください')
-    } else {
-      setWarningImageMessage('')
-    }
-    if (result >= 1) {
-      setConfirmMessage('トイレの画像を確認しました')
-      setTimeout(() => {
-        setConfirmMessage('')
-      }, 5000)
-      setImageToiletCleanness(result)
-      return true
-    }
-    setImageToiletCleanness(result)
-    return false
-  }
-
-  const onChangeEvaluateToiletCleanness = async (files: FileList) => {
-    const file = files[0]
-    return await evaluateToiletCleanness(file)
   }
 
   const s3 = new AWS.S3({
@@ -230,8 +197,6 @@ const AddRestroomContainer: React.FC<AddRestroomProps> = ({
       fileInput={fileInput}
       onChange={onChange} //ファイル分割用に追加
       warningImageMessage={warningImageMessage}
-      confirmImageMessage={confirmImageMessage}
-      isLoading={isLoading}
     />
   )
 }
