@@ -37,7 +37,7 @@ interface DisplayModalWindowProps {
   capacity: number
   remarks: string
   image: string
-  openEditCoolingshelterModalWindow: () => void
+  // openEditCoolingshelterModalWindow: () => void
 }
 
 const DisplayModalWindow: React.FC<DisplayModalWindowProps> = ({
