@@ -5,7 +5,6 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import { mutate } from 'swr'
 import { supabase } from '../utils/supabase'
 import AddSimpleRestroom from '@/presentationals/AddSimpleRestroom'
-import { chatgpt, encodeImageToBase64 } from '@/utils/chatgptAPI'
 
 interface AddSimpleRestroomFormData {
   name: string
@@ -67,9 +66,7 @@ const AddSimpleRestroomContainer: React.FC<AddSimpleRestroomProps> = ({
   const [imageLatitude, setImageLatitude] = useState('')
   const [imageLongitude, setImageLongitude] = useState('')
   const [warningImageMessage, setWarningImageMessage] = useState('')
-  const [confirmImageMessage, setConfirmMessage] = useState('')
   const [warningCoordMessage, setWarningCoordMessage] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
   const [image, setImage] = useState<string | null>(null) //S3のURL
 
   useEffect(() => {
@@ -82,10 +79,7 @@ const AddSimpleRestroomContainer: React.FC<AddSimpleRestroomProps> = ({
     try {
       showImageFileName(files)
       await onChangeShowExifData(e)
-      const isOk = await onChangeEvaluateToiletCleanness(files)
-      if (isOk) {
-        await onChangeUploadFileToS3(files)
-      }
+      await onChangeUploadFileToS3(files)
     } catch (error) {
       console.error('Error processing file:', error)
     }
@@ -168,40 +162,6 @@ const AddSimpleRestroomContainer: React.FC<AddSimpleRestroomProps> = ({
     if (!e.target.files) return
     const file = e.target.files[0]
     await getExifData(file)
-  }
-
-  const evaluateToiletCleanness = async (file: File) => {
-    setIsLoading(true)
-    try {
-      const imageBase64 = await encodeImageToBase64(file)
-      const result = await chatgpt(imageBase64)
-      setIsLoading(false)
-      if (result == 0) {
-        setWarningImageMessage('トイレの画像をアップロードしてください')
-      } else {
-        setWarningImageMessage('')
-      }
-      if (result >= 1) {
-        setConfirmMessage('トイレの画像を確認しました')
-        setTimeout(() => {
-          setConfirmMessage('')
-        }, 5000)
-        setImageToiletCleanness(result)
-        return true
-      }
-      setImageToiletCleanness(result)
-      return false
-    } catch (error) {
-      setIsLoading(false)
-      console.error('Error evaluating toilet cleanness:', error)
-      setWarningImageMessage('トイレの清潔度の評価に失敗しました')
-      return false
-    }
-  }
-
-  const onChangeEvaluateToiletCleanness = async (files: FileList) => {
-    const file = files[0]
-    return await evaluateToiletCleanness(file)
   }
 
   const s3 = new AWS.S3({
@@ -297,9 +257,7 @@ const AddSimpleRestroomContainer: React.FC<AddSimpleRestroomProps> = ({
       fileInput={fileInput}
       onChange={onChange} //ファイル分割用に追加
       warningImageMessage={warningImageMessage}
-      confirmImageMessage={confirmImageMessage}
       warningCoordMessage={warningCoordMessage}
-      isLoading={isLoading}
     />
   )
 }

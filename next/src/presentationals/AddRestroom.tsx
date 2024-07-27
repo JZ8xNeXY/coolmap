@@ -32,8 +32,6 @@ interface AddRestroomProps {
   fileInput: MutableRefObject<HTMLInputElement | null> //更新可能
   onChange: any
   warningImageMessage: string
-  confirmImageMessage: string
-  isLoading: boolean
 }
 
 const AddRestroom: React.FC<AddRestroomProps> = ({
@@ -51,8 +49,6 @@ const AddRestroom: React.FC<AddRestroomProps> = ({
   fileInput,
   onChange,
   warningImageMessage,
-  confirmImageMessage,
-  isLoading,
 }) => {
   return (
     <Modal open={open} onClose={onClose}>
@@ -69,11 +65,6 @@ const AddRestroom: React.FC<AddRestroomProps> = ({
           {warningImageMessage && (
             <Alert severity="warning" sx={{ mb: 2 }}>
               {warningImageMessage}
-            </Alert>
-          )}
-          {confirmImageMessage && (
-            <Alert severity="success" sx={{ mb: 2 }}>
-              {confirmImageMessage}
             </Alert>
           )}
           <Stack
@@ -96,13 +87,10 @@ const AddRestroom: React.FC<AddRestroomProps> = ({
             <Button
               variant="contained"
               type="button"
-              disabled={isLoading}
+              // disabled={}
               sx={{ fontWeight: 'bold', color: 'white' }}
               onClick={selectImageFile}
             >
-              {isLoading
-                ? 'トイレの状況を確認中...'
-                : '📁 ファイルから画像を選択'}
               <span
                 style={{ color: 'white', fontSize: '15px', marginLeft: '5px' }}
               >
