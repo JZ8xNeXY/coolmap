@@ -3,32 +3,34 @@ import type { NextPage } from 'next'
 import { useEffect, useState, useRef } from 'react'
 import useSWR from 'swr'
 import { supabase } from '../utils/supabase'
-import { useRestroomContext } from '@/context/RestRoomContext'
-import AddMarkers from '@/presentationals/AddMarkers'
+import { useCoolingshelterContext } from '@/context/CoolingshelterContext'
+import AddCoolingsheltersMarkers from '@/presentationals/AddCoolingsheltersMarkers'
 import { userGeoLocation } from '@/utils/userGeoLocation'
 
-interface AddMarkersProps {
+interface AddCoolingsheltersMarkersProps {
   map: google.maps.Map | null
 }
 
-interface Restroom {
+interface Coolingshelter {
   id: number
   name: string
   address: string
   latitude: number
   longitude: number
-  opening_hours: string
-  has_water_server: boolean
-  has_desk: boolean
-  has_chair: boolean
-  has_power_outlet: boolean
-  has_tv: boolean
+  openingHours: string
+  hasWaterServer: boolean
+  hasDesk: boolean
+  hasChair: boolean
+  hasPowerOutlet: boolean
+  hasTv: boolean
   capacity: number
   remarks: string
   image: string
 }
 
-const AddMarkersContainer: NextPage<AddMarkersProps> = ({ map }) => {
+const AddCoolingsheltersMarkersContainer: NextPage<
+  AddCoolingsheltersMarkersProps
+> = ({ map }) => {
   //supabaseからの読込
   const fetchPosts = async () => {
     const { data, error } = await supabase.from('coolingshelters').select('*')
@@ -42,7 +44,8 @@ const AddMarkersContainer: NextPage<AddMarkersProps> = ({ map }) => {
     revalidateOnFocus: false,
   })
 
-  const { selectedRestroom, setSelectedRestroom } = useRestroomContext()
+  const { selectedCoolingshelter, setSelectedCoolingshelter } =
+    useCoolingshelterContext()
 
   const [openModalWindow, setOpenModalWindow] = useState(false)
   const closeModalWindow = () => setOpenModalWindow(false)
@@ -71,43 +74,52 @@ const AddMarkersContainer: NextPage<AddMarkersProps> = ({ map }) => {
         markersRef.current.forEach((marker) => (marker.map = null))
         markersRef.current = []
 
-        const restrooms: Restroom[] = data ? camelcaseKeys(data) : []
+        const coolingshelters: Coolingshelter[] = data
+          ? camelcaseKeys(data)
+          : []
 
         const { AdvancedMarkerElement } = (await google.maps.importLibrary(
           'marker',
         )) as google.maps.MarkerLibrary
 
-        restrooms.forEach((restroom) => {
-          const restroomImg = document.createElement('img')
-          restroomImg.src = '/restroom.png'
-          restroomImg.alt = restroom.name
-          restroomImg.width = 75
-          restroomImg.height = 75
+        coolingshelters.forEach((coolingshelter) => {
+          const coolingshelterImg = document.createElement('img')
+          coolingshelterImg.src = '/coolingshelter.png'
+          coolingshelterImg.alt = coolingshelter.name
+          coolingshelterImg.width = 75
+          coolingshelterImg.height = 75
+
+          console.log(coolingshelter)
 
           const marker = new AdvancedMarkerElement({
             map,
-            position: { lat: restroom.latitude, lng: restroom.longitude },
-            title: restroom.name,
-            content: restroomImg,
+            position: {
+              lat: coolingshelter.latitude,
+              lng: coolingshelter.longitude,
+            },
+            title: coolingshelter.name,
+            content: coolingshelterImg,
           })
+
+          console.log(marker)
 
           marker.addListener('gmp-click', function () {
             setOpenModalWindow(true)
-            setSelectedRestroom({
-              id: restroom.id,
-              name: restroom.name,
-              address: restroom.address,
-              content: restroom.content,
-              latitude: restroom.latitude,
-              longitude: restroom.longitude,
-              createdAt: restroom.createdAt,
-              nursingRoom: restroom.nursingRoom,
-              anyoneToilet: restroom.anyoneToilet,
-              diaperChangingStation: restroom.diaperChangingStation,
-              powderCorner: restroom.powderCorner,
-              strollerAccessible: restroom.strollerAccessible,
-              evaluation: restroom.evaluation,
-              image: restroom.image,
+            setSelectedCoolingshelter({
+              id: coolingshelter.id,
+              name: coolingshelter.name,
+              address: coolingshelter.address,
+              latitude: coolingshelter.latitude,
+              longitude: coolingshelter.longitude,
+              openingHours: coolingshelter.openingHours,
+              hasWaterServer: coolingshelter.hasWaterServer,
+              hasDesk: coolingshelter.hasDesk,
+              hasChair: coolingshelter.hasChair,
+              hasPowerOutlet: coolingshelter.hasPowerOutlet,
+              hasTv: coolingshelter.hasTv,
+              capacity: coolingshelter.capacity,
+              remarks: coolingshelter.remarks,
+              image: coolingshelter.image,
             })
           })
 
@@ -119,19 +131,19 @@ const AddMarkersContainer: NextPage<AddMarkersProps> = ({ map }) => {
     if (map) {
       addMarkers()
     }
-  }, [map, data, setSelectedRestroom])
+  }, [map, data, setSelectedCoolingshelter])
 
   return (
-    <AddMarkers
+    <AddCoolingsheltersMarkers
       error={error}
       data={data}
       openModalWindow={openModalWindow}
       closeModalWindow={closeModalWindow}
-      selectedRestroom={selectedRestroom}
+      selectedCoolingshelter={selectedCoolingshelter}
       currentUserPos={currentUserPos}
       map={map}
     />
   )
 }
 
-export default AddMarkersContainer
+export default AddCoolingsheltersMarkersContainer

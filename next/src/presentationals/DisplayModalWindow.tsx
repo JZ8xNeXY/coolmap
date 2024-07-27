@@ -2,7 +2,6 @@
 import CloseIcon from '@mui/icons-material/Close'
 import { Box, Button, Modal, Typography } from '@mui/material'
 import React from 'react'
-import ReactStarsRating from 'react-awesome-stars-rating'
 import buttonStyle from '@/styles/buttonStyle'
 import changeFontSize from '@/styles/changeFontSize'
 import {
@@ -27,17 +26,18 @@ interface DisplayModalWindowProps {
   closeModalWindow: () => void
   name: string
   address: string
-  content: string
   latitude: number
   longitude: number
-  nursingRoom?: boolean
-  anyoneToilet?: boolean
-  diaperChangingStation?: boolean
-  powderCorner?: boolean
-  strollerAccessible?: boolean
-  evaluation: number
+  openingHours: string
+  hasWaterServer?: boolean
+  hasDesk?: boolean
+  hasChair?: boolean
+  hasPowerOutlet?: boolean
+  hasTv?: boolean
+  capacity: number
+  remarks: string
   image: string
-  openEditRestroomModalWindow: () => void
+  openEditCoolingshelterModalWindow: () => void
 }
 
 const DisplayModalWindow: React.FC<DisplayModalWindowProps> = ({
@@ -46,15 +46,16 @@ const DisplayModalWindow: React.FC<DisplayModalWindowProps> = ({
   closeModalWindow,
   name,
   address,
-  content,
-  nursingRoom,
-  anyoneToilet,
-  diaperChangingStation,
-  powderCorner,
-  strollerAccessible,
-  evaluation,
+  openingHours,
+  hasWaterServer,
+  hasDesk,
+  hasChair,
+  hasPowerOutlet,
+  hasTv,
+  capacity,
+  remarks,
   image,
-  openEditRestroomModalWindow,
+  // openEditCoolingshelterModalWindow,
 }) => {
   return (
     <Modal
@@ -79,7 +80,7 @@ const DisplayModalWindow: React.FC<DisplayModalWindowProps> = ({
             },
           }}
         >
-          <img src={image} alt="restroom" width={200} height={200} />
+          <img src={image} alt="coolingshelter" width={200} height={200} />
         </Box>
         <Box
           sx={{
@@ -95,29 +96,31 @@ const DisplayModalWindow: React.FC<DisplayModalWindowProps> = ({
             {name ? name : 'ー'}
           </Typography>
         </Box>
-        {user &&
+        {/* {user &&
           (user ? (
             <Box sx={{ display: 'flex', justifyContent: 'right', mt: 0 }}>
               <Button
                 sx={buttonStyle}
                 onClick={() => {
                   closeModalWindow()
-                  openEditRestroomModalWindow()
+                  openEditCoolingshelterModalWindow()
                 }}
               >
                 編集する
               </Button>
             </Box>
-          ) : null)}
+          ) : null)} */}
         <Box sx={{ mt: 1 }}>
           <Typography variant="h6" sx={{ fontWeight: 'bold', mt: 1 }}>
             住所
           </Typography>
           <Typography sx={{ ml: 2 }}>{address ? address : 'ー'}</Typography>
           <Typography variant="h6" sx={{ fontWeight: 'bold', mt: 1 }}>
-            コメント
+            開館時間
           </Typography>
-          <Typography sx={{ ml: 2 }}>{content ? content : 'ー'}</Typography>
+          <Typography sx={{ ml: 2 }}>
+            {openingHours ? openingHours : 'ー'}
+          </Typography>
           <Typography variant="h6" sx={{ fontWeight: 'bold', mt: 1 }}>
             設備情報
           </Typography>
@@ -130,43 +133,35 @@ const DisplayModalWindow: React.FC<DisplayModalWindowProps> = ({
             }}
           >
             <Typography sx={{ ml: 2 }}>
-              {!nursingRoom &&
-                !anyoneToilet &&
-                !diaperChangingStation &&
-                !powderCorner &&
-                !strollerAccessible && <Typography>ー</Typography>}
+              {!hasWaterServer &&
+                !hasDesk &&
+                !hasChair &&
+                !hasPowerOutlet &&
+                !hasTv && <Typography>ー</Typography>}
             </Typography>
-            {nursingRoom && (
-              <Typography sx={nursingRoomStyle}>授乳室</Typography>
+            {hasWaterServer && (
+              <Typography sx={nursingRoomStyle}>ウォーターサーバー</Typography>
             )}
-            {anyoneToilet && (
-              <Typography sx={anyoneToiletStyle}>誰でもトイレ</Typography>
+            {hasDesk && <Typography sx={anyoneToiletStyle}>机</Typography>}
+            {hasChair && (
+              <Typography sx={diaperChangingStationStyle}>椅子</Typography>
             )}
-            {diaperChangingStation && (
-              <Typography sx={diaperChangingStationStyle}>
-                オムツ交換台
-              </Typography>
+            {hasPowerOutlet && (
+              <Typography sx={powderCornerStyle}>電源</Typography>
             )}
-            {powderCorner && (
-              <Typography sx={powderCornerStyle}>パウダーコーナー</Typography>
-            )}
-            {strollerAccessible && (
-              <Typography sx={strollerAccessibleStyle}>ベビーカー可</Typography>
+            {hasTv && (
+              <Typography sx={strollerAccessibleStyle}>テレビ</Typography>
             )}
           </Box>
           <Typography variant="h6" sx={{ fontWeight: 'bold', mt: 1 }}>
-            清潔度
+            受入可能人数
           </Typography>
-          {/* <Typography sx={{ ml: 2 }}>評価:{evaluation}</Typography> */}
-          <Box sx={{ ml: 2 }}>
-            <ReactStarsRating isEdit={false} value={evaluation} />
-          </Box>
+          <Typography sx={{ ml: 2 }}>{capacity ? capacity : 'ー'}人</Typography>
+          <Typography variant="h6" sx={{ fontWeight: 'bold', mt: 1 }}>
+            備考
+          </Typography>
+          <Typography sx={{ ml: 2 }}>{remarks ? remarks : 'ー'}</Typography>
         </Box>
-        {/* <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-          <Button sx={buttonStyle} onClick={closeModalWindow}>
-            評価する
-          </Button>
-        </Box> */}
         <Box sx={{ textAlign: 'center', mt: 4 }}>
           <Button
             variant="contained"

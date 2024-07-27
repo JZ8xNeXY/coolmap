@@ -1,5 +1,5 @@
 const facilityStyle = {
-  maxWidth: '150px',
+  maxWidth: '200px',
   pl: 1,
   pr: 1,
   ml: 2,

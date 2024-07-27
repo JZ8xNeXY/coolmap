@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import Script from 'next/script'
 import { useEffect } from 'react'
 import HeaderContainer from '@/containers/HeaderContainer'
-import { RestroomProvider } from '@/context/RestRoomContext'
+import { CoolingshelterProvider } from '@/context/CoolingshelterContext'
 import { SessionProvider } from '@/context/SessionContext'
 import Footer from '@/presentationals/Footer'
 
@@ -59,12 +59,12 @@ export default function MyApp(props: MyAppProps): JSX.Element {
         <ThemeProvider theme={theme}>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <SessionProvider>
-            <RestroomProvider>
+            <CoolingshelterProvider>
               <CssBaseline />
               <HeaderContainer />
               <Component {...pageProps} />
               <Footer />
-            </RestroomProvider>
+            </CoolingshelterProvider>
           </SessionProvider>
         </ThemeProvider>
       </CacheProvider>
