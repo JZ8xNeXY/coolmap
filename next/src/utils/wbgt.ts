@@ -8,7 +8,7 @@ export const getWbgtIndex = async (): Promise<string> => {
   const AREA_CODE = '44132' // 東京の地点コード
 
   try {
-    const response = await axios.get(
+    const response = await fetch(
       `https://www.wbgt.env.go.jp/prev15WG/dl/yohou_${AREA_CODE}.csv`,
       {
         headers: {
@@ -17,6 +17,10 @@ export const getWbgtIndex = async (): Promise<string> => {
         },
       },
     )
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok: ' + response.statusText)
+    }
 
     const data = response.data
     const listWbgt = data.split('\n').map((line: string) => line.split(','))
