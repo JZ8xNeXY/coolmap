@@ -19,7 +19,8 @@ const Index: NextPage = () => {
   const [coords, setCoords] = useState<{ lat: number; lng: number } | null>(
     null,
   )
-  const [weather, setWeather] = useState<WeatherData | null>(null)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [weather, setWeather] = useState<any>(null)
   const [wbgtIndex, setWbgtIndex] = useState<string>('取得中...')
 
   useEffect(() => {
