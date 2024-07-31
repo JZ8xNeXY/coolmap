@@ -33,7 +33,8 @@ interface Forecast {
 const WEATHER_API_URL =
   'https://weather.tsukumijima.net/api/forecast/city/130010'
 
-export const getWeatherData = async (): Promise<WeatherData | null> => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const getWeatherData = async (): Promise<any> => {
   try {
     const response = await axios.get(WEATHER_API_URL)
     const data = response.data
