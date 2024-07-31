@@ -50,7 +50,7 @@ export const useWaterserverContext = () => {
   const context = useContext(WaterserverContext)
   if (!context) {
     throw new Error(
-      'useWaterserverContext must be used within a CoolingshelterProvider',
+      'useWaterserverContext must be used within a WaterserverProvider',
     )
   }
   return context

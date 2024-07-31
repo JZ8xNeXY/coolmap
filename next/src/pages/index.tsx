@@ -1,9 +1,8 @@
 import { Box, Container } from '@mui/material'
 import type { NextPage } from 'next'
 import { useEffect, useState } from 'react'
-import AddCoolingshelterMarkersContainer from '@/containers/AddCoolingsheltersMarkersContainer'
+import AddMarkersContainer from '@/containers/AddMarkersContainer'
 import AddRestroomContainer from '@/containers/AddRestroomContainer'
-import AddWaterserversMarkersContainer from '@/containers/AddWaterserversMarkersContainer'
 import { CoolingshelterProvider } from '@/context/CoolingshelterContext'
 import { SessionProvider } from '@/context/SessionContext'
 import { WaterserverProvider } from '@/context/WaterserverContext'
@@ -36,16 +35,15 @@ const Index: NextPage = () => {
       <Container maxWidth="xl">
         <SessionProvider>
           <CoolingshelterProvider>
-            <AddCoolingshelterMarkersContainer map={map} />
+            <WaterserverProvider>
+              <AddMarkersContainer map={map} />
+            </WaterserverProvider>
             <AddRestroomContainer
               open={openAddRestroomModal}
               onClose={() => setOpenAddRestroomModal(false)}
               coords={coords}
             />
           </CoolingshelterProvider>
-          <WaterserverProvider>
-            <AddWaterserversMarkersContainer map={map} />
-          </WaterserverProvider>
         </SessionProvider>
         <Box id="map" style={{ height: '80vh', width: '100%' }}></Box>
         <Box id="infoPanel"></Box>
