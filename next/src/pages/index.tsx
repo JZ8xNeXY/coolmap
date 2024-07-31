@@ -6,6 +6,7 @@ import AddRestroomContainer from '@/containers/AddRestroomContainer'
 import AddWaterserversMarkersContainer from '@/containers/AddWaterserversMarkersContainer'
 import { CoolingshelterProvider } from '@/context/CoolingshelterContext'
 import { SessionProvider } from '@/context/SessionContext'
+import { WaterserverProvider } from '@/context/WaterserverContext'
 import { RightClickMapHandler } from '@/utils/RightClickMapHandler'
 import { loadGoogleMapsAPI } from '@/utils/loadGoogleMapsAPI'
 import { userGeoLocation } from '@/utils/userGeoLocation'
@@ -36,13 +37,15 @@ const Index: NextPage = () => {
         <SessionProvider>
           <CoolingshelterProvider>
             <AddCoolingshelterMarkersContainer map={map} />
-            <AddWaterserversMarkersContainer map={map} />
             <AddRestroomContainer
               open={openAddRestroomModal}
               onClose={() => setOpenAddRestroomModal(false)}
               coords={coords}
             />
           </CoolingshelterProvider>
+          <WaterserverProvider>
+            <AddWaterserversMarkersContainer map={map} />
+          </WaterserverProvider>
         </SessionProvider>
         <Box id="map" style={{ height: '80vh', width: '100%' }}></Box>
         <Box id="infoPanel"></Box>
