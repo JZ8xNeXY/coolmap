@@ -20,7 +20,7 @@ interface UserProps {
   isSignedIn: boolean
 }
 
-interface DisplayModalWindowProps {
+interface DisplayCoolingshelterModalWindowProps {
   user: UserProps
   openModalWindow: boolean
   closeModalWindow: () => void
@@ -40,7 +40,9 @@ interface DisplayModalWindowProps {
   // openEditCoolingshelterModalWindow: () => void
 }
 
-const DisplayModalWindow: React.FC<DisplayModalWindowProps> = ({
+const DisplayCoolingshelterModalWindow: React.FC<
+  DisplayCoolingshelterModalWindowProps
+> = ({
   // user,
   openModalWindow,
   closeModalWindow,
@@ -178,4 +180,4 @@ const DisplayModalWindow: React.FC<DisplayModalWindowProps> = ({
   )
 }
 
-export default DisplayModalWindow
+export default DisplayCoolingshelterModalWindow

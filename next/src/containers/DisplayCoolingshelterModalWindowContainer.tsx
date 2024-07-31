@@ -1,9 +1,9 @@
 // import React, { useState } from 'react'
 // import EditRestroomContainer from './EditRestroomContainer'
 import { useSessionContext } from '@/context/SessionContext'
-import DisplayModalWindow from '@/presentationals/DisplayModalWindow'
+import DisplayCoolingshelterModalWindow from '@/presentationals/DisplayCoolingshelterModalWindow'
 
-interface DisplayModalWindowContainerProps {
+interface DisplayCoolingshelterModalWindowContainerProps {
   openModalWindow: boolean
   closeModalWindow: () => void
   name: string
@@ -21,8 +21,8 @@ interface DisplayModalWindowContainerProps {
   image: string
 }
 
-const DisplayModalWindowContainer: React.FC<
-  DisplayModalWindowContainerProps
+const DisplayCoolingshelterModalWindowContainer: React.FC<
+  DisplayCoolingshelterModalWindowContainerProps
 > = ({
   openModalWindow,
   closeModalWindow,
@@ -51,7 +51,7 @@ const DisplayModalWindowContainer: React.FC<
         open={editModalWindow}
         onClose={closeEditRestroomModalWindow}
       /> */}
-      <DisplayModalWindow
+      <DisplayCoolingshelterModalWindow
         user={currentUser}
         openModalWindow={openModalWindow}
         closeModalWindow={closeModalWindow}
@@ -74,4 +74,4 @@ const DisplayModalWindowContainer: React.FC<
   )
 }
 
-export default DisplayModalWindowContainer
+export default DisplayCoolingshelterModalWindowContainer

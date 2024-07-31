@@ -1,6 +1,6 @@
 import { Box } from '@mui/material'
 import CalculateAndDisplayRoute from './CalculateAndDisplayRoute'
-import DisplayModalWindowContainer from '@/containers/DisplayModalWindowContainer'
+import DisplayCoolingshelterModalWindowContainer from '@/containers/DisplayCoolingshelterModalWindowContainer'
 
 interface Coolingshelter {
   id: number
@@ -45,7 +45,7 @@ const AddCoolingsheltersMarkers: React.FC<AddCoolingsheltersMarkersProps> = ({
 
   return (
     <>
-      <DisplayModalWindowContainer
+      <DisplayCoolingshelterModalWindowContainer
         openModalWindow={openModalWindow}
         closeModalWindow={closeModalWindow}
         name={selectedCoolingshelter.name}
