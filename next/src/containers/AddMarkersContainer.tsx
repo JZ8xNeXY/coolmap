@@ -50,8 +50,6 @@ const AddMarkersContainer: NextPage<AddMarkersProps> = ({ map }) => {
     }
     return data
   }
-
-
   const fetchWaterservers = async () => {
     const { data, error } = await supabase.from('waterservers').select('*')
     if (error) {
@@ -81,8 +79,11 @@ const AddMarkersContainer: NextPage<AddMarkersProps> = ({ map }) => {
   const { selectedWaterserver, setSelectedWaterserver } =
     useWaterserverContext()
 
-  const [openModalWindow, setOpenModalWindow] = useState(false)
-  const closeModalWindow = () => setOpenModalWindow(false)
+  const [openCoolingshelterModal, setOpenCoolingshelterModal] = useState(false)
+  const closeCoolingshelterModal = () => setOpenCoolingshelterModal(false)
+
+  const [openWaterserverModal, setOpenWaterserverModal] = useState(false)
+  const closeWaterserverModal = () => setOpenWaterserverModal(false)
 
   const [currentUserPos, setCurrentUserPos] = useState<{
     lat: number
@@ -132,7 +133,7 @@ const AddMarkersContainer: NextPage<AddMarkersProps> = ({ map }) => {
           })
 
           coolingshelterMarker.addListener('gmp-click', function () {
-            setOpenModalWindow(true)
+            setOpenCoolingshelterModal(true)
             setSelectedCoolingshelter({
               id: coolingshelter.id,
               name: coolingshelter.name,
@@ -150,6 +151,8 @@ const AddMarkersContainer: NextPage<AddMarkersProps> = ({ map }) => {
               image: coolingshelter.image,
             })
           })
+
+          console.log(coolingshelterMarker)
 
           markersRef.current.push(coolingshelterMarker)
         })
@@ -172,7 +175,7 @@ const AddMarkersContainer: NextPage<AddMarkersProps> = ({ map }) => {
           })
 
           waterserverMarker.addListener('gmp-click', function () {
-            setOpenModalWindow(true)
+            setOpenWaterserverModal(true)
             setSelectedWaterserver({
               id: waterserver.id,
               name: waterserver.name,
@@ -185,6 +188,8 @@ const AddMarkersContainer: NextPage<AddMarkersProps> = ({ map }) => {
               image: waterserver.image,
             })
           })
+
+          console.log(waterserverMarker)
 
           markersRef.current.push(waterserverMarker)
         })
@@ -207,8 +212,8 @@ const AddMarkersContainer: NextPage<AddMarkersProps> = ({ map }) => {
       <AddCoolingsheltersMarkers
         error={coolingsheltersError}
         data={coolingsheltersData}
-        openModalWindow={openModalWindow}
-        closeModalWindow={closeModalWindow}
+        openModalWindow={openCoolingshelterModal}
+        closeModalWindow={closeCoolingshelterModal}
         selectedCoolingshelter={selectedCoolingshelter}
         currentUserPos={currentUserPos}
         map={map}
@@ -216,8 +221,8 @@ const AddMarkersContainer: NextPage<AddMarkersProps> = ({ map }) => {
       <AddWaterserversMarkers
         error={waterserversError}
         data={waterserversData}
-        openModalWindow={openModalWindow}
-        closeModalWindow={closeModalWindow}
+        openModalWindow={openWaterserverModal}
+        closeModalWindow={closeWaterserverModal}
         selectedWaterserver={selectedWaterserver}
         currentUserPos={currentUserPos}
         map={map}
