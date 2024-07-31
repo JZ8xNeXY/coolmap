@@ -60,7 +60,6 @@ export const getWbgtIndex = async (): Promise<string> => {
     throw new Error('地点コードに一致するデータが見つかりませんでした')
   } catch (error) {
     console.error('天気データの取得に失敗しました', error)
-    console.error('エラーメッセージ:', error.message)
     return 'データ取得エラー'
   }
 }
