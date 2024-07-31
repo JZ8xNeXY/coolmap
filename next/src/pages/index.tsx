@@ -3,6 +3,7 @@ import type { NextPage } from 'next'
 import { useEffect, useState } from 'react'
 import AddCoolingshelterMarkersContainer from '@/containers/AddCoolingsheltersMarkersContainer'
 import AddRestroomContainer from '@/containers/AddRestroomContainer'
+import AddWaterserversMarkersContainer from '@/containers/AddWaterserversMarkersContainer'
 import { CoolingshelterProvider } from '@/context/CoolingshelterContext'
 import { SessionProvider } from '@/context/SessionContext'
 import { RightClickMapHandler } from '@/utils/RightClickMapHandler'
@@ -35,6 +36,7 @@ const Index: NextPage = () => {
         <SessionProvider>
           <CoolingshelterProvider>
             <AddCoolingshelterMarkersContainer map={map} />
+            <AddWaterserversMarkersContainer map={map} />
             <AddRestroomContainer
               open={openAddRestroomModal}
               onClose={() => setOpenAddRestroomModal(false)}
