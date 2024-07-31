@@ -1,6 +1,6 @@
 import { Box } from '@mui/material'
 import CalculateAndDisplayRoute from './CalculateAndDisplayRoute'
-// import DisplayModalWindowContainer from '@/containers/DisplayModalWindowContainer'
+import DisplayWaterserverModalWindowContainer from '@/containers/DisplayWaterserverModalWindowContainer'
 
 interface Waterserver {
   id: number
@@ -40,7 +40,7 @@ const AddWaterserversMarkers: React.FC<AddWaterserversMarkersProps> = ({
 
   return (
     <>
-      {/* <DisplayModalWindowContainer
+      <DisplayWaterserverModalWindowContainer
         openModalWindow={openModalWindow}
         closeModalWindow={closeModalWindow}
         name={selectedWaterserver.name}
@@ -51,7 +51,7 @@ const AddWaterserversMarkers: React.FC<AddWaterserversMarkersProps> = ({
         spoutType={selectedWaterserver.spoutType}
         bottleDispenserType={selectedWaterserver.bottleDispenserType}
         image={selectedWaterserver.image}
-      /> */}
+      />
       {currentUserPos &&
         selectedWaterserver.latitude !== undefined &&
         selectedWaterserver.longitude !== undefined && (
