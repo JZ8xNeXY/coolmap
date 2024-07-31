@@ -42,6 +42,7 @@ export const getWeatherData = async (): Promise<WeatherData | null> => {
       publicTime: data.publicTime,
       title: data.title,
       description: data.description.text,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       forecasts: data.forecasts.map((forecast: any) => ({
         date: forecast.date,
         dateLabel: forecast.dateLabel,

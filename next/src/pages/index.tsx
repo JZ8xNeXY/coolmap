@@ -1,5 +1,6 @@
 import { Box, Container } from '@mui/material'
 import type { NextPage } from 'next'
+import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import AddMarkersContainer from '@/containers/AddMarkersContainer'
 import AddRestroomContainer from '@/containers/AddRestroomContainer'
@@ -60,7 +61,7 @@ const Index: NextPage = () => {
             {todayForecast ? (
               <>
                 <p>{todayForecast.telop}</p>
-                <img
+                <Image
                   src={todayForecast.image.url}
                   alt={todayForecast.image.title}
                   width={todayForecast.image.width}
