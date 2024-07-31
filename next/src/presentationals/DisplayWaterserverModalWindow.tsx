@@ -4,13 +4,7 @@ import { Box, Button, Modal, Typography } from '@mui/material'
 import React from 'react'
 // import buttonStyle from '@/styles/buttonStyle'
 import changeFontSize from '@/styles/changeFontSize'
-import {
-  nursingRoomStyle,
-  anyoneToiletStyle,
-  diaperChangingStationStyle,
-  powderCornerStyle,
-  strollerAccessibleStyle,
-} from '@/styles/facilityStyles'
+import { nursingRoomStyle, anyoneToiletStyle } from '@/styles/facilityStyles'
 import modalStyle from '@/styles/modalStyles'
 
 interface UserProps {
@@ -20,40 +14,32 @@ interface UserProps {
   isSignedIn: boolean
 }
 
-interface DisplayModalWindowProps {
+interface DisplayWaterserverModalWindowProps {
   user: UserProps
   openModalWindow: boolean
   closeModalWindow: () => void
   name: string
   address: string
+  place: string
   latitude: number
   longitude: number
-  openingHours: string
-  hasWaterServer?: boolean
-  hasDesk?: boolean
-  hasChair?: boolean
-  hasPowerOutlet?: boolean
-  hasTv?: boolean
-  capacity: number
-  remarks: string
+  spoutType?: boolean
+  bottleDispenserType?: boolean
   image: string
   // openEditCoolingshelterModalWindow: () => void
 }
 
-const DisplayModalWindow: React.FC<DisplayModalWindowProps> = ({
+const DisplayWaterserverModalWindow: React.FC<
+  DisplayWaterserverModalWindowProps
+> = ({
   // user,
   openModalWindow,
   closeModalWindow,
   name,
   address,
-  openingHours,
-  hasWaterServer,
-  hasDesk,
-  hasChair,
-  hasPowerOutlet,
-  hasTv,
-  capacity,
-  remarks,
+  place,
+  spoutType,
+  bottleDispenserType,
   image,
   // openEditCoolingshelterModalWindow,
 }) => {
@@ -80,7 +66,7 @@ const DisplayModalWindow: React.FC<DisplayModalWindowProps> = ({
             },
           }}
         >
-          <img src={image} alt="coolingshelter" width={200} height={200} />
+          <img src={image} alt="waterserver" width={200} height={200} />
         </Box>
         <Box
           sx={{
@@ -116,13 +102,11 @@ const DisplayModalWindow: React.FC<DisplayModalWindowProps> = ({
           </Typography>
           <Typography sx={{ ml: 2 }}>{address ? address : 'ー'}</Typography>
           <Typography variant="h6" sx={{ fontWeight: 'bold', mt: 1 }}>
-            開館時間
+            場所
           </Typography>
-          <Typography sx={{ ml: 2 }}>
-            {openingHours ? openingHours : 'ー'}
-          </Typography>
+          <Typography sx={{ ml: 2 }}>{place ? place : 'ー'}</Typography>
           <Typography variant="h6" sx={{ fontWeight: 'bold', mt: 1 }}>
-            設備情報
+            タイプ
           </Typography>
           <Box
             sx={{
@@ -133,34 +117,19 @@ const DisplayModalWindow: React.FC<DisplayModalWindowProps> = ({
             }}
           >
             <Typography sx={{ ml: 2 }}>
-              {!hasWaterServer &&
-                !hasDesk &&
-                !hasChair &&
-                !hasPowerOutlet &&
-                !hasTv && <Typography>ー</Typography>}
+              {!spoutType && !bottleDispenserType && (
+                <Typography>ー</Typography>
+              )}
             </Typography>
-            {hasWaterServer && (
-              <Typography sx={nursingRoomStyle}>ウォーターサーバー</Typography>
+            {spoutType && (
+              <Typography sx={nursingRoomStyle}>飲み口型水飲栓</Typography>
             )}
-            {hasDesk && <Typography sx={anyoneToiletStyle}>机</Typography>}
-            {hasChair && (
-              <Typography sx={diaperChangingStationStyle}>椅子</Typography>
-            )}
-            {hasPowerOutlet && (
-              <Typography sx={powderCornerStyle}>電源</Typography>
-            )}
-            {hasTv && (
-              <Typography sx={strollerAccessibleStyle}>テレビ</Typography>
+            {bottleDispenserType && (
+              <Typography sx={anyoneToiletStyle}>
+                ボトルディスペンサー型水飲栓
+              </Typography>
             )}
           </Box>
-          <Typography variant="h6" sx={{ fontWeight: 'bold', mt: 1 }}>
-            受入可能人数
-          </Typography>
-          <Typography sx={{ ml: 2 }}>{capacity ? capacity : 'ー'}人</Typography>
-          <Typography variant="h6" sx={{ fontWeight: 'bold', mt: 1 }}>
-            備考
-          </Typography>
-          <Typography sx={{ ml: 2 }}>{remarks ? remarks : 'ー'}</Typography>
         </Box>
         <Box sx={{ textAlign: 'center', mt: 4 }}>
           <Button
@@ -178,4 +147,4 @@ const DisplayModalWindow: React.FC<DisplayModalWindowProps> = ({
   )
 }
 
-export default DisplayModalWindow
+export default DisplayWaterserverModalWindow

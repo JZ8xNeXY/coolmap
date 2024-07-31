@@ -1,43 +1,33 @@
 // import React, { useState } from 'react'
 // import EditRestroomContainer from './EditRestroomContainer'
 import { useSessionContext } from '@/context/SessionContext'
-import DisplayModalWindow from '@/presentationals/DisplayModalWindow'
+import DisplayWaterserverModalWindow from '@/presentationals/DisplayWaterserverModalWindow'
 
-interface DisplayModalWindowContainerProps {
+interface DisplayWaterserverModalWindowContainerProps {
   openModalWindow: boolean
   closeModalWindow: () => void
   name: string
   address: string
+  place: string
   latitude: number
   longitude: number
-  openingHours: string
-  hasWaterServer: boolean
-  hasDesk: boolean
-  hasChair: boolean
-  hasPowerOutlet: boolean
-  hasTv: boolean
-  capacity: number
-  remarks: string
+  spoutType: boolean
+  bottleDispenserType: boolean
   image: string
 }
 
-const DisplayModalWindowContainer: React.FC<
-  DisplayModalWindowContainerProps
+const DisplayWaterserverModalWindowContainer: React.FC<
+  DisplayWaterserverModalWindowContainerProps
 > = ({
   openModalWindow,
   closeModalWindow,
   name,
   address,
+  place,
   latitude,
   longitude,
-  openingHours,
-  hasWaterServer,
-  hasDesk,
-  hasChair,
-  hasPowerOutlet,
-  hasTv,
-  capacity,
-  remarks,
+  spoutType,
+  bottleDispenserType,
   image,
 }) => {
   const { currentUser } = useSessionContext()
@@ -51,22 +41,17 @@ const DisplayModalWindowContainer: React.FC<
         open={editModalWindow}
         onClose={closeEditRestroomModalWindow}
       /> */}
-      <DisplayModalWindow
+      <DisplayWaterserverModalWindow
         user={currentUser}
         openModalWindow={openModalWindow}
         closeModalWindow={closeModalWindow}
         name={name}
         address={address}
+        place={place}
         latitude={latitude}
         longitude={longitude}
-        openingHours={openingHours}
-        hasWaterServer={hasWaterServer}
-        hasDesk={hasDesk}
-        hasChair={hasChair}
-        hasPowerOutlet={hasPowerOutlet}
-        hasTv={hasTv}
-        capacity={capacity}
-        remarks={remarks}
+        spoutType={spoutType}
+        bottleDispenserType={bottleDispenserType}
         image={image}
         // openEditRestroomModalWindow={openEditRestroomModalWindow}
       />
@@ -74,4 +59,4 @@ const DisplayModalWindowContainer: React.FC<
   )
 }
 
-export default DisplayModalWindowContainer
+export default DisplayWaterserverModalWindowContainer

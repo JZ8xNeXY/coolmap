@@ -10,8 +10,9 @@ import {
 import type { NextPage } from 'next'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import AddCoolingshelterMarkersContainer from '@/containers/AddCoolingsheltersMarkersContainer'
+import AddMarkersContainer from '@/containers/AddMarkersContainer'
 import { CoolingshelterProvider } from '@/context/CoolingshelterContext'
+import { WaterserverProvider } from '@/context/WaterserverContext'
 import { loadGoogleMapsAPI } from '@/utils/loadGoogleMapsAPI'
 
 const cardStyle = {
@@ -169,7 +170,9 @@ const About: NextPage = () => {
 
       <Box sx={{ textAlign: 'center', mt: 4 }}>
         <CoolingshelterProvider>
-          <AddCoolingshelterMarkersContainer map={map} />
+          <WaterserverProvider>
+            <AddMarkersContainer map={map} />
+          </WaterserverProvider>
         </CoolingshelterProvider>
         <Box id="map" style={{ height: '80vh', width: '100%' }}></Box>
       </Box>

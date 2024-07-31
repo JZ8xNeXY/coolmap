@@ -1,10 +1,11 @@
 import { Box, Container } from '@mui/material'
 import type { NextPage } from 'next'
 import { useEffect, useState } from 'react'
-import AddCoolingshelterMarkersContainer from '@/containers/AddCoolingsheltersMarkersContainer'
+import AddMarkersContainer from '@/containers/AddMarkersContainer'
 import AddRestroomContainer from '@/containers/AddRestroomContainer'
 import { CoolingshelterProvider } from '@/context/CoolingshelterContext'
 import { SessionProvider } from '@/context/SessionContext'
+import { WaterserverProvider } from '@/context/WaterserverContext'
 import { RightClickMapHandler } from '@/utils/RightClickMapHandler'
 import { loadGoogleMapsAPI } from '@/utils/loadGoogleMapsAPI'
 import { userGeoLocation } from '@/utils/userGeoLocation'
@@ -34,7 +35,9 @@ const Index: NextPage = () => {
       <Container maxWidth="xl">
         <SessionProvider>
           <CoolingshelterProvider>
-            <AddCoolingshelterMarkersContainer map={map} />
+            <WaterserverProvider>
+              <AddMarkersContainer map={map} />
+            </WaterserverProvider>
             <AddRestroomContainer
               open={openAddRestroomModal}
               onClose={() => setOpenAddRestroomModal(false)}
