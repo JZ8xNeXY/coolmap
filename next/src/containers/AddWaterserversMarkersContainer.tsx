@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from 'react'
 import useSWR from 'swr'
 import { supabase } from '../utils/supabase'
 import { usewaterserverContext } from '@/context/waterserverContext'
-import AddwaterserversMarkers from '@/presentationals/AddwaterserversMarkers'
+import AddWaterserversMarkers from '@/presentationals/AddWaterserversMarkers'
 import { userGeoLocation } from '@/utils/userGeoLocation'
 
 interface AddWaterserversMarkersProps {
@@ -102,16 +102,11 @@ const AddWaterserversMarkersContainer: NextPage<
               id: waterserver.id,
               name: waterserver.name,
               address: waterserver.address,
+              place: waterserver.place,
               latitude: waterserver.latitude,
               longitude: waterserver.longitude,
-              openingHours: waterserver.openingHours,
-              hasWaterServer: waterserver.hasWaterServer,
-              hasDesk: waterserver.hasDesk,
-              hasChair: waterserver.hasChair,
-              hasPowerOutlet: waterserver.hasPowerOutlet,
-              hasTv: waterserver.hasTv,
-              capacity: waterserver.capacity,
-              remarks: waterserver.remarks,
+              spoutType: waterserver.spoutType,
+              bottleDispenserType: waterserver.bottleDispenserType,
               image: waterserver.image,
             })
           })
@@ -127,7 +122,7 @@ const AddWaterserversMarkersContainer: NextPage<
   }, [map, data, setSelectedWaterserver])
 
   return (
-    <AddwaterserversMarkers
+    <AddWaterserversMarkers
       error={error}
       data={data}
       openModalWindow={openModalWindow}
