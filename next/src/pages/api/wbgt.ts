@@ -27,6 +27,7 @@ export default async function handler(req, res) {
     const listWbgt = data.split('\n').map((line: string) => line.split(','))
 
     const currentHour = moment.tz('Asia/Tokyo').hour()
+    const targetDate = currentHour < 12 ? today : tomorrow
     const targetTime = currentHour < 12 ? `${today}12` : `${tomorrow}12`
 
     let targetColumn: number | null = null
@@ -61,7 +62,7 @@ export default async function handler(req, res) {
       }
     }
 
-    res.status(200).json({ wbgtIndex })
+    res.status(200).json({ wbgtIndex, targetDate })
   } catch (error) {
     console.error('CSVデータの取得に失敗しました', error)
     res.status(500).json({ error: 'CSVデータの取得に失敗しました' })

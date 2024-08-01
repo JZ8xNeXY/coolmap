@@ -21,7 +21,7 @@ const Index: NextPage = () => {
   )
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [weather, setWeather] = useState<any>(null)
-  const [wbgtIndex, setWbgtIndex] = useState<string>('取得中...')
+  const [data, setData] = useState({ wbgtIndex: null, targetDate: null })
 
   useEffect(() => {
     loadGoogleMapsAPI(setMap)
@@ -49,7 +49,7 @@ const Index: NextPage = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get('/api/wbgt')
-        setWbgtIndex(response.data.wbgtIndex)
+        setData(response.data)
       } catch (error) {
         console.error('データ取得に失敗しました', error)
       }
@@ -58,7 +58,7 @@ const Index: NextPage = () => {
     fetchData()
   }, [])
 
-  if (wbgtIndex === null) {
+  if (data.wbgtIndex === null) {
     return <div>Loading...</div>
   }
 
@@ -69,7 +69,7 @@ const Index: NextPage = () => {
           <div style={{ display: 'flex', alignItems: 'center' }}>
             {todayForecast ? (
               <>
-                <p>{todayForecast.telop}</p>
+                <p>{data.targetDate}の天気</p>
                 <Image
                   src={todayForecast.image.url}
                   alt={todayForecast.image.title}
@@ -80,7 +80,7 @@ const Index: NextPage = () => {
             ) : (
               <p>天気情報を取得中...</p>
             )}
-            <p> 東京の暑さ指数: {wbgtIndex}</p>
+            <p>暑さ指数：{data.wbgtIndex}</p>
           </div>
         </Box>
         <SessionProvider>
