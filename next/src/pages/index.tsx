@@ -19,13 +19,34 @@ const Index: NextPage = () => {
   const [coords, setCoords] = useState<{ lat: number; lng: number } | null>(
     null,
   )
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [weather, setWeather] = useState<any>(null)
   const [data, setData] = useState({ wbgtIndex: null, targetDate: null })
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    loadGoogleMapsAPI(setMap)
+    const fetchData = async () => {
+      try {
+        const weatherData = await getWeatherData()
+        setWeather(weatherData)
+
+        const response = await axios.get('/api/wbgt')
+        setData(response.data)
+
+        setLoading(false)
+      } catch (error) {
+        console.error('データ取得に失敗しました', error)
+        setLoading(false)
+      }
+    }
+
+    fetchData()
   }, [])
+
+  useEffect(() => {
+    if (!loading) {
+      loadGoogleMapsAPI(setMap)
+    }
+  }, [loading])
 
   useEffect(() => {
     if (map) {
@@ -34,71 +55,50 @@ const Index: NextPage = () => {
     }
   }, [map])
 
-  useEffect(() => {
-    const fetchWeather = async () => {
-      const data = await getWeatherData()
-      setWeather(data)
-    }
+  const todayForecast = weather?.forecasts?.[0]
 
-    fetchWeather()
-  }, [])
-
-  const todayForecast = weather?.forecasts[0]
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('/api/wbgt')
-        setData(response.data)
-      } catch (error) {
-        console.error('データ取得に失敗しました', error)
-      }
-    }
-
-    fetchData()
-  }, [])
-
-  if (data.wbgtIndex === null) {
+  if (loading) {
     return <div>Loading...</div>
   }
 
   return (
-    <>
-      <Container maxWidth="xl">
-        <Box>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            {todayForecast ? (
-              <>
-                <p>{data.targetDate}の天気</p>
-                <Image
-                  src={todayForecast.image.url}
-                  alt={todayForecast.image.title}
-                  width={todayForecast.image.width}
-                  height={todayForecast.image.height}
-                />
-              </>
-            ) : (
-              <p>天気情報を取得中...</p>
-            )}
-            <p>暑さ指数：{data.wbgtIndex}</p>
-          </div>
-        </Box>
-        <SessionProvider>
-          <CoolingshelterProvider>
-            <WaterserverProvider>
-              <AddMarkersContainer map={map} />
-            </WaterserverProvider>
-            <AddRestroomContainer
-              open={openAddRestroomModal}
-              onClose={() => setOpenAddRestroomModal(false)}
-              coords={coords}
-            />
-          </CoolingshelterProvider>
-        </SessionProvider>
-        <Box id="map" style={{ height: '80vh', width: '100%' }}></Box>
-        <Box id="infoPanel"></Box>
-      </Container>
-    </>
+    <Container maxWidth="xl">
+      <Box mb={2}>
+        <div
+          style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}
+        >
+          {todayForecast ? (
+            <>
+              <p>{data.targetDate}の天気</p>
+              <Image
+                src={todayForecast.image.url}
+                alt={todayForecast.image.title}
+                width={todayForecast.image.width}
+                height={todayForecast.image.height}
+                style={{ marginRight: '1rem' }}
+              />
+            </>
+          ) : (
+            <p>天気情報を取得中...</p>
+          )}
+          <p>暑さ指数：{data.wbgtIndex}</p>
+        </div>
+      </Box>
+      <SessionProvider>
+        <CoolingshelterProvider>
+          <WaterserverProvider>
+            <AddMarkersContainer map={map} />
+          </WaterserverProvider>
+          <AddRestroomContainer
+            open={openAddRestroomModal}
+            onClose={() => setOpenAddRestroomModal(false)}
+            coords={coords}
+          />
+        </CoolingshelterProvider>
+      </SessionProvider>
+      <Box id="map" style={{ height: '80vh', width: '100%' }}></Box>
+      <Box id="infoPanel"></Box>
+    </Container>
   )
 }
 
