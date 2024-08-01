@@ -1,4 +1,5 @@
 import { Box, Container } from '@mui/material'
+import axios from 'axios'
 import type { NextPage } from 'next'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
@@ -53,6 +54,23 @@ const Index: NextPage = () => {
   }, [])
 
   const todayForecast = weather?.forecasts[0]
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('/api/wbgt')
+        setWbgtIndex(response.data.wbgtIndex)
+      } catch (error) {
+        console.error('データ取得に失敗しました', error)
+      }
+    }
+
+    fetchData()
+  }, [])
+
+  if (wbgtIndex === null) {
+    return <div>Loading...</div>
+  }
 
   return (
     <>
