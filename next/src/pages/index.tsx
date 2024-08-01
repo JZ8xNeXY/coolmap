@@ -11,7 +11,6 @@ import { WaterserverProvider } from '@/context/WaterserverContext'
 import { RightClickMapHandler } from '@/utils/RightClickMapHandler'
 import { loadGoogleMapsAPI } from '@/utils/loadGoogleMapsAPI'
 import { userGeoLocation } from '@/utils/userGeoLocation'
-import { getWbgtIndex } from '@/utils/wbgt'
 import { getWeatherData } from '@/utils/weather'
 
 const Index: NextPage = () => {
@@ -42,15 +41,6 @@ const Index: NextPage = () => {
     }
 
     fetchWeather()
-  }, [])
-
-  useEffect(() => {
-    const fetchWbgtIndex = async () => {
-      const index = await getWbgtIndex()
-      setWbgtIndex(index)
-    }
-
-    fetchWbgtIndex()
   }, [])
 
   const todayForecast = weather?.forecasts[0]
