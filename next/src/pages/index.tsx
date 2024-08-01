@@ -19,6 +19,7 @@ const Index: NextPage = () => {
   const [coords, setCoords] = useState<{ lat: number; lng: number } | null>(
     null,
   )
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [weather, setWeather] = useState<any>(null)
   const [data, setData] = useState({ wbgtIndex: null, targetDate: null })
   const [loading, setLoading] = useState(true)

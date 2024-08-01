@@ -8,7 +8,8 @@ const httpsAgent = new https.Agent({
   secureOptions: constants.SSL_OP_LEGACY_SERVER_CONNECT,
 })
 
-export default async function handler(req, res) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default async function handler(req: any, res: any) {
   const today = moment.tz('Asia/Tokyo').format('YYYYMMDD')
   const tomorrow = moment.tz('Asia/Tokyo').add(1, 'day').format('YYYYMMDD')
 
