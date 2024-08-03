@@ -1,4 +1,5 @@
-import { Box, Container } from '@mui/material'
+import WarningIcon from '@mui/icons-material/Warning'
+import { Box, Container, Typography, Paper, Grid } from '@mui/material'
 import axios from 'axios'
 import type { NextPage } from 'next'
 import Image from 'next/image'
@@ -56,34 +57,204 @@ const Index: NextPage = () => {
     }
   }, [map])
 
-  const todayForecast = weather?.forecasts?.[0]
-
   if (loading) {
     return <div>Loading...</div>
   }
 
   return (
-    <Container maxWidth="xl">
-      <Box mb={2}>
-        <div
-          style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}
+    <Container
+      maxWidth="xl"
+      sx={{
+        padding: '2rem',
+        background: 'linear-gradient(135deg, #003300 30%, #006400 90%)',
+        color: '#e0f2f1',
+        minHeight: '100vh',
+      }}
+    >
+      <Box mt={4} sx={{ textAlign: 'center' }}>
+        <Paper
+          elevation={3}
+          sx={{
+            display: 'inline-block',
+            padding: '1rem 2rem',
+            backgroundColor: '#ff7043',
+            color: '#ffffff',
+            borderRadius: '1rem',
+            boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)',
+            textAlign: 'center',
+          }}
         >
-          {todayForecast ? (
-            <>
-              <p>{data.targetDate}の天気</p>
-              <Image
-                src={todayForecast.image.url}
-                alt={todayForecast.image.title}
-                width={todayForecast.image.width}
-                height={todayForecast.image.height}
-                style={{ marginRight: '1rem' }}
-              />
-            </>
-          ) : (
-            <p>天気情報を取得中...</p>
-          )}
-          <p>暑さ指数：{data.wbgtIndex}</p>
-        </div>
+          <WarningIcon
+            sx={{
+              fontSize: 40,
+              verticalAlign: 'middle',
+              marginRight: '0.5rem',
+            }}
+          />
+          <Typography
+            variant="h5"
+            sx={{
+              fontWeight: 'bold',
+              display: 'inline-block',
+              verticalAlign: 'middle',
+            }}
+          >
+            暑さ指数：{data.wbgtIndex}
+          </Typography>
+        </Paper>
+        {data.wbgtIndex === '危険 熱中症の危険性が高まっています' && (
+          <Paper
+            elevation={3}
+            sx={{
+              display: 'inline-block',
+              marginTop: '1rem',
+              padding: '1rem 2rem',
+              backgroundColor: '#C801FF',
+              color: '#000000',
+              borderRadius: '1rem',
+              border: '2px solid white',
+              WebkitTextStroke: '1px white',
+              fontWeight: 'bold',
+              textAlign: 'center',
+              boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)',
+            }}
+          >
+            <WarningIcon
+              sx={{
+                fontSize: 40,
+                verticalAlign: 'middle',
+                marginRight: '0.5rem',
+              }}
+            />
+            <Typography
+              variant="h5"
+              sx={{
+                fontWeight: 'bold',
+                display: 'inline-block',
+                verticalAlign: 'middle',
+              }}
+            >
+              熱中症警戒アラート発表中
+            </Typography>
+          </Paper>
+        )}
+      </Box>
+      <Box mb={4} sx={{ textAlign: 'center' }}>
+        <Typography
+          variant="h3"
+          gutterBottom
+          sx={{
+            mt: 5,
+            fontWeight: 'bold',
+            color: '#ffffff',
+            marginBottom: '2rem',
+            textTransform: 'uppercase',
+            letterSpacing: '2px',
+          }}
+        >
+          天気予報
+        </Typography>
+        <Grid container spacing={4}>
+          {weather?.forecasts
+            ?.slice(0, 3)
+            .map((forecast: any, index: number) => (
+              <Grid item xs={12} md={4} key={index}>
+                <Paper
+                  elevation={3}
+                  sx={{
+                    padding: '2rem',
+                    textAlign: 'center',
+                    backgroundColor: '#004d40',
+                    borderRadius: '1rem',
+                    boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)',
+                    transition:
+                      'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
+                    '&:hover': {
+                      transform: 'scale(1.05)',
+                      boxShadow: '0 8px 30px rgba(0, 0, 0, 0.4)',
+                    },
+                  }}
+                >
+                  <Box sx={{ marginBottom: '1rem' }}>
+                    <Image
+                      src={forecast.image.url}
+                      alt={forecast.image.title}
+                      width={forecast.image.width * 1.5}
+                      height={forecast.image.height * 1.5}
+                      style={{ borderRadius: '1rem' }}
+                    />
+                  </Box>
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      fontWeight: 'bold',
+                      marginBottom: '1rem',
+                      color: '#e0f2f1',
+                    }}
+                  >
+                    {forecast.date}
+                  </Typography>
+                  <Typography
+                    variant="body1"
+                    sx={{ marginBottom: '0.5rem', color: '#e0f2f1' }}
+                  >
+                    最高気温：{forecast.temperature.max.celsius}度
+                  </Typography>
+                  <Typography
+                    variant="body1"
+                    sx={{ marginBottom: '0.5rem', color: '#e0f2f1' }}
+                  >
+                    最低気温：{forecast.temperature.min.celsius}度
+                  </Typography>
+                  <Typography
+                    variant="body1"
+                    sx={{ marginBottom: '0.5rem', color: '#e0f2f1' }}
+                  >
+                    降水確率:
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    sx={{ marginBottom: '0.3rem', color: '#e0f2f1' }}
+                  >
+                    0-6時：{forecast.chanceOfRain.T00_06}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    sx={{ marginBottom: '0.3rem', color: '#e0f2f1' }}
+                  >
+                    6-12時：{forecast.chanceOfRain.T06_12}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    sx={{ marginBottom: '0.3rem', color: '#e0f2f1' }}
+                  >
+                    12-18時：{forecast.chanceOfRain.T12_18}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    sx={{ marginBottom: '0.3rem', color: '#e0f2f1' }}
+                  >
+                    18-24時：{forecast.chanceOfRain.T18_24}
+                  </Typography>
+                </Paper>
+              </Grid>
+            ))}
+        </Grid>
+      </Box>
+      <Box mb={4} sx={{ textAlign: 'center' }}>
+        <Typography
+          variant="h3"
+          gutterBottom
+          sx={{
+            fontWeight: 'bold',
+            color: '#ffffff',
+            marginBottom: '2rem',
+            textTransform: 'uppercase',
+            letterSpacing: '2px',
+          }}
+        >
+          市内休憩所情報
+        </Typography>
       </Box>
       <SessionProvider>
         <CoolingshelterProvider>
@@ -97,8 +268,17 @@ const Index: NextPage = () => {
           />
         </CoolingshelterProvider>
       </SessionProvider>
-      <Box id="map" style={{ height: '80vh', width: '100%' }}></Box>
-      <Box id="infoPanel"></Box>
+      <Box
+        id="map"
+        sx={{
+          height: '80vh',
+          width: '100%',
+          marginTop: '2rem',
+          borderRadius: '1rem',
+          overflow: 'hidden',
+          boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)',
+        }}
+      ></Box>
     </Container>
   )
 }

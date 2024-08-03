@@ -154,8 +154,6 @@ const AddMarkersContainer: NextPage<AddMarkersProps> = ({ map }) => {
             })
           })
 
-          console.log(coolingshelterMarker)
-
           markersRef.current.push(coolingshelterMarker)
         })
 
@@ -190,8 +188,6 @@ const AddMarkersContainer: NextPage<AddMarkersProps> = ({ map }) => {
               image: waterserver.image,
             })
           })
-
-          console.log(waterserverMarker)
 
           markersRef.current.push(waterserverMarker)
         })
