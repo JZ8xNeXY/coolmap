@@ -157,6 +157,7 @@ const Index: NextPage = () => {
         <Grid container spacing={4}>
           {weather?.forecasts
             ?.slice(0, 3)
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             .map((forecast: any, index: number) => (
               <Grid item xs={12} md={4} key={index}>
                 <Paper
