@@ -61,9 +61,6 @@ const DisplayCoolingshelterModalWindow: React.FC<
   image,
   // openEditCoolingshelterModalWindow,
 }) => {
-  console.log(name)
-  console.log(address)
-
   return (
     <Modal
       open={openModalWindow}

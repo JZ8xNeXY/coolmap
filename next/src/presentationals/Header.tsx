@@ -7,8 +7,8 @@ import {
   Toolbar,
   IconButton,
   Drawer,
+  Typography,
 } from '@mui/material'
-// import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import AddSimpleRestroomContainer from '@/containers/AddSimpleRestroomContainer'
@@ -44,105 +44,63 @@ const Header: React.FC<HeaderProps> = ({
     <AppBar
       position="static"
       sx={{
-        backgroundColor: 'white',
-        color: 'black',
+        backgroundColor: '#004d40',
+        color: '#e0f2f1',
         boxShadow: 'none',
         py: '12px',
       }}
     >
       <Container maxWidth="xl" sx={{ px: 2 }}>
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
-            <Box>
-              <Toolbar>
-                <IconButton
-                  edge="start"
-                  color="inherit"
-                  aria-label="menu"
-                  onClick={openDrawer(true)}
-                >
-                  <MenuIcon />
-                </IconButton>
-              </Toolbar>
-              <Drawer
-                anchor="left"
-                open={isOpen}
-                onClose={() => {
-                  openDrawer(false)
+        <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              onClick={openDrawer(true)}
+              sx={{ mr: 2 }}
+            >
+              <MenuIcon sx={{ fontSize: 30 }} />
+            </IconButton>
+            <Drawer anchor="left" open={isOpen} onClose={openDrawer(false)}>
+              {list()}
+            </Drawer>
+            <Link href="/" passHref>
+              <Typography
+                variant="h6"
+                component="div"
+                sx={{
+                  fontWeight: 'bold',
+                  color: '#e0f2f1',
+                  textDecoration: 'none',
                 }}
               >
-                {list()}
-              </Drawer>
-            </Box>
-            <Box>
-              <Link href="/">
-                <Box
-                  sx={{
-                    width: '100%',
-                    maxWidth: {
-                      xs: '120px',
-                      sm: '140px',
-                      md: '160px',
-                      lg: '180px',
-                      xl: '200px',
-                    },
-                    height: 'auto',
-                    '& img': {
-                      width: '100%',
-                      height: 'auto',
-                    },
-                  }}
-                >
-                  <Box>CoolShelter Map</Box>
-                  {/* <Image
-                    src="/headerlogo.png"
-                    alt="logo"
-                    width={200}
-                    height={50}
-                    prefix="false"
-                  /> */}
-                </Box>
-              </Link>
-            </Box>
-            <Box>
-              {user && <Box sx={{ ml: 10 }}> 管理者権限でログイン中 </Box>}
-            </Box>
+                三鷹市熱中症予防案内サイト
+              </Typography>
+            </Link>
           </Box>
-          <Box>
-            <Toolbar>
-              <IconButton
-                edge="start"
-                color="inherit"
-                aria-label="menu"
-                onClick={() => setOpenAddSimpleRestroomModal(true)}
-              >
-                <AddLocationIcon
-                  style={{
-                    cursor: 'pointer',
-                    stroke: 'none',
-                    fontSize: '35px',
-                  }}
-                />
-              </IconButton>
-            </Toolbar>
-            <AddSimpleRestroomContainer
-              open={openAddSimpleRestroomModal}
-              onClose={() => setOpenAddSimpleRestroomModal(false)}
-            />
-          </Box>
-        </Box>
+          {user && (
+            <Typography
+              variant="body1"
+              component="div"
+              sx={{ ml: 2, fontStyle: 'italic' }}
+            >
+              管理者権限でログイン中
+            </Typography>
+          )}
+          <IconButton
+            edge="end"
+            color="inherit"
+            aria-label="add location"
+            onClick={() => setOpenAddSimpleRestroomModal(true)}
+          >
+            <AddLocationIcon sx={{ fontSize: 35 }} />
+          </IconButton>
+          <AddSimpleRestroomContainer
+            open={openAddSimpleRestroomModal}
+            onClose={() => setOpenAddSimpleRestroomModal(false)}
+          />
+        </Toolbar>
       </Container>
     </AppBar>
   )

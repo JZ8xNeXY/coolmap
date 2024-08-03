@@ -44,8 +44,6 @@ const AddCoolingsheltersMarkers: React.FC<AddCoolingsheltersMarkersProps> = ({
   if (error) return <Box>An error has occurred.</Box>
   if (!data) return <Box>Loading...</Box>
 
-  console.log(selectedCoolingshelter)
-
   return (
     <>
       <DisplayCoolingshelterModalWindowContainer

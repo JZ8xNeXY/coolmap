@@ -57,7 +57,7 @@ export default async function handler(req: any, res: any) {
         } else if (wbgt < 31 * 10) {
           wbgtIndex = '厳重警戒'
         } else {
-          wbgtIndex = '危険'
+          wbgtIndex = '危険 熱中症の危険性が高まっています'
         }
         break
       }
