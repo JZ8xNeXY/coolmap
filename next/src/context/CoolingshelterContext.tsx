@@ -6,13 +6,14 @@ interface Coolingshelter {
   address: string
   latitude: number
   longitude: number
+  tel: string
   openingHours: string
-  hasWaterServer: boolean
-  hasDesk: boolean
-  hasChair: boolean
-  hasPowerOutlet: boolean
-  hasTv: boolean
-  capacity: number
+  closedDays: string
+  waterCooler: boolean
+  waterServer: boolean
+  vendingMachine: boolean
+  drinkingWaterProvided: boolean
+  installationPlanned: boolean
   remarks: string
   image: string
 }
@@ -30,13 +31,14 @@ const defaultCoolingshelter: Coolingshelter = {
   address: '',
   latitude: 0,
   longitude: 0,
+  tel: '',
   openingHours: '',
-  hasWaterServer: false,
-  hasDesk: false,
-  hasPowerOutlet: false,
-  hasChair: false,
-  hasTv: false,
-  capacity: 0,
+  closedDays: '',
+  waterCooler: false,
+  waterServer: false,
+  vendingMachine: false,
+  drinkingWaterProvided: false,
+  installationPlanned: false,
   remarks: '',
   image: '',
 }

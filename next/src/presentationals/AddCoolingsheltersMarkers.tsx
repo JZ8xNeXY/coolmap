@@ -8,13 +8,14 @@ interface Coolingshelter {
   address: string
   latitude: number
   longitude: number
+  tel: string
   openingHours: string
-  hasWaterServer: boolean
-  hasDesk: boolean
-  hasChair: boolean
-  hasPowerOutlet: boolean
-  hasTv: boolean
-  capacity: number
+  closedDays: string
+  waterCooler: boolean
+  waterServer: boolean
+  vendingMachine: boolean
+  drinkingWaterProvided: boolean
+  installationPlanned: boolean
   remarks: string
   image: string
 }
@@ -54,13 +55,14 @@ const AddCoolingsheltersMarkers: React.FC<AddCoolingsheltersMarkersProps> = ({
         address={selectedCoolingshelter.address}
         latitude={selectedCoolingshelter.latitude}
         longitude={selectedCoolingshelter.longitude}
+        tel={selectedCoolingshelter.tel}
         openingHours={selectedCoolingshelter.openingHours}
-        hasWaterServer={selectedCoolingshelter.hasWaterServer}
-        hasDesk={selectedCoolingshelter.hasDesk}
-        hasChair={selectedCoolingshelter.hasChair}
-        hasPowerOutlet={selectedCoolingshelter.hasPowerOutlet}
-        hasTv={selectedCoolingshelter.hasTv}
-        capacity={selectedCoolingshelter.capacity}
+        closedDays={selectedCoolingshelter.closedDays}
+        waterCooler={selectedCoolingshelter.waterCooler}
+        waterServer={selectedCoolingshelter.waterServer}
+        vendingMachine={selectedCoolingshelter.vendingMachine}
+        drinkingWaterProvided={selectedCoolingshelter.drinkingWaterProvided}
+        installationPlanned={selectedCoolingshelter.installationPlanned}
         remarks={selectedCoolingshelter.remarks}
         image={selectedCoolingshelter.image}
       />
