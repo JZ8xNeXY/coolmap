@@ -75,7 +75,7 @@ const Header: React.FC<HeaderProps> = ({
                   textDecoration: 'none',
                 }}
               >
-                CoolShelter Map
+                三鷹市熱中症予防案内サイト
               </Typography>
             </Link>
           </Box>

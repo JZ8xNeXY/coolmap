@@ -1,5 +1,6 @@
+import DownloadIcon from '@mui/icons-material/Download'
 import WarningIcon from '@mui/icons-material/Warning'
-import { Box, Container, Typography, Paper, Grid } from '@mui/material'
+import { Box, Container, Typography, Paper, Grid, Link } from '@mui/material'
 import axios from 'axios'
 import type { NextPage } from 'next'
 import Image from 'next/image'
@@ -280,6 +281,65 @@ const Index: NextPage = () => {
           boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)',
         }}
       ></Box>
+      <Box mb={4} sx={{ textAlign: 'center' }}>
+        <Typography
+          variant="h3"
+          gutterBottom
+          sx={{
+            mt: 5,
+            fontWeight: 'bold',
+            color: '#ffffff',
+            marginBottom: '2rem',
+            textTransform: 'uppercase',
+            letterSpacing: '2px',
+          }}
+        >
+          熱中症予防のために
+        </Typography>
+        <Link
+          href="https://www.city.mitaka.lg.jp/c_service/092/attached/attach_92012_1.pdf"
+          underline="hover"
+          sx={{
+            fontSize: '1.25rem',
+            color: '#ffffff',
+            textDecoration: 'underline',
+            '&:hover': {
+              color: '#80cbc4',
+            },
+          }}
+          target="_blank"
+          rel="noopener"
+        >
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Image
+              src="/heatstroke.png"
+              alt="熱中症予防のために"
+              width={500}
+              height={750}
+              style={{ borderRadius: '1rem', marginRight: '1rem' }}
+            />
+            <Typography
+              variant="body1"
+              sx={{
+                color: '#ffffff',
+                fontWeight: 'bold',
+                fontSize: '1.25rem',
+                display: 'flex',
+                alignItems: 'center',
+              }}
+            >
+              熱中症予防のために
+              <DownloadIcon sx={{ fontSize: '1.5rem', marginLeft: '0.5rem' }} />
+            </Typography>
+          </Box>
+        </Link>
+      </Box>
     </Container>
   )
 }
