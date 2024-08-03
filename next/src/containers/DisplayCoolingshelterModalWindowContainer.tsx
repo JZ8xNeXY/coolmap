@@ -10,13 +10,14 @@ interface DisplayCoolingshelterModalWindowContainerProps {
   address: string
   latitude: number
   longitude: number
+  tel: string
   openingHours: string
-  hasWaterServer: boolean
-  hasDesk: boolean
-  hasChair: boolean
-  hasPowerOutlet: boolean
-  hasTv: boolean
-  capacity: number
+  closedDays: string
+  waterCooler: boolean
+  waterServer: boolean
+  vendingMachine: boolean
+  drinkingWaterProvided: boolean
+  installationPlanned: boolean
   remarks: string
   image: string
 }
@@ -30,13 +31,14 @@ const DisplayCoolingshelterModalWindowContainer: React.FC<
   address,
   latitude,
   longitude,
+  tel,
   openingHours,
-  hasWaterServer,
-  hasDesk,
-  hasChair,
-  hasPowerOutlet,
-  hasTv,
-  capacity,
+  closedDays,
+  waterCooler,
+  waterServer,
+  vendingMachine,
+  drinkingWaterProvided,
+  installationPlanned,
   remarks,
   image,
 }) => {
@@ -59,13 +61,14 @@ const DisplayCoolingshelterModalWindowContainer: React.FC<
         address={address}
         latitude={latitude}
         longitude={longitude}
+        tel={tel}
         openingHours={openingHours}
-        hasWaterServer={hasWaterServer}
-        hasDesk={hasDesk}
-        hasChair={hasChair}
-        hasPowerOutlet={hasPowerOutlet}
-        hasTv={hasTv}
-        capacity={capacity}
+        closedDays={closedDays}
+        waterCooler={waterCooler}
+        waterServer={waterServer}
+        vendingMachine={vendingMachine}
+        drinkingWaterProvided={drinkingWaterProvided}
+        installationPlanned={installationPlanned}
         remarks={remarks}
         image={image}
         // openEditRestroomModalWindow={openEditRestroomModalWindow}

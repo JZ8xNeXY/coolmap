@@ -19,13 +19,14 @@ interface Coolingshelter {
   address: string
   latitude: number
   longitude: number
+  tel: string
   openingHours: string
-  hasWaterServer: boolean
-  hasDesk: boolean
-  hasChair: boolean
-  hasPowerOutlet: boolean
-  hasTv: boolean
-  capacity: number
+  closedDays: string
+  waterCooler: boolean
+  waterServer: boolean
+  vendingMachine: boolean
+  drinkingWaterProvided: boolean
+  installationPlanned: boolean
   remarks: string
   image: string
 }
@@ -140,13 +141,14 @@ const AddMarkersContainer: NextPage<AddMarkersProps> = ({ map }) => {
               address: coolingshelter.address,
               latitude: coolingshelter.latitude,
               longitude: coolingshelter.longitude,
+              tel: coolingshelter.tel,
               openingHours: coolingshelter.openingHours,
-              hasWaterServer: coolingshelter.hasWaterServer,
-              hasDesk: coolingshelter.hasDesk,
-              hasChair: coolingshelter.hasChair,
-              hasPowerOutlet: coolingshelter.hasPowerOutlet,
-              hasTv: coolingshelter.hasTv,
-              capacity: coolingshelter.capacity,
+              closedDays: coolingshelter.closedDays,
+              waterCooler: coolingshelter.waterCooler,
+              waterServer: coolingshelter.waterServer,
+              vendingMachine: coolingshelter.vendingMachine,
+              drinkingWaterProvided: coolingshelter.drinkingWaterProvided,
+              installationPlanned: coolingshelter.installationPlanned,
               remarks: coolingshelter.remarks,
               image: coolingshelter.image,
             })

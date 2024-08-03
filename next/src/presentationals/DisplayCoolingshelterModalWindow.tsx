@@ -28,13 +28,14 @@ interface DisplayCoolingshelterModalWindowProps {
   address: string
   latitude: number
   longitude: number
+  tel: string
   openingHours: string
-  hasWaterServer?: boolean
-  hasDesk?: boolean
-  hasChair?: boolean
-  hasPowerOutlet?: boolean
-  hasTv?: boolean
-  capacity: number
+  closedDays: string
+  waterCooler: boolean
+  waterServer: boolean
+  vendingMachine: boolean
+  drinkingWaterProvided: boolean
+  installationPlanned: boolean
   remarks: string
   image: string
   // openEditCoolingshelterModalWindow: () => void
@@ -48,13 +49,14 @@ const DisplayCoolingshelterModalWindow: React.FC<
   closeModalWindow,
   name,
   address,
+  tel,
   openingHours,
-  hasWaterServer,
-  hasDesk,
-  hasChair,
-  hasPowerOutlet,
-  hasTv,
-  capacity,
+  closedDays,
+  waterCooler,
+  waterServer,
+  vendingMachine,
+  drinkingWaterProvided,
+  installationPlanned,
   remarks,
   image,
   // openEditCoolingshelterModalWindow,
@@ -117,14 +119,24 @@ const DisplayCoolingshelterModalWindow: React.FC<
           ) : null)} */}
         <Box sx={{ mt: 1 }}>
           <Typography variant="h6" sx={{ fontWeight: 'bold', mt: 1 }}>
-            住所
+            所在地
           </Typography>
           <Typography sx={{ ml: 2 }}>{address ? address : 'ー'}</Typography>
           <Typography variant="h6" sx={{ fontWeight: 'bold', mt: 1 }}>
-            開館時間
+            連絡先
+          </Typography>
+          <Typography sx={{ ml: 2 }}>{tel ? tel : 'ー'}</Typography>
+          <Typography variant="h6" sx={{ fontWeight: 'bold', mt: 1 }}>
+            開館日時
           </Typography>
           <Typography sx={{ ml: 2 }}>
             {openingHours ? openingHours : 'ー'}
+          </Typography>
+          <Typography variant="h6" sx={{ fontWeight: 'bold', mt: 1 }}>
+            休館日
+          </Typography>
+          <Typography sx={{ ml: 2 }}>
+            {closedDays ? closedDays : 'ー'}
           </Typography>
           <Typography variant="h6" sx={{ fontWeight: 'bold', mt: 1 }}>
             設備情報
@@ -138,30 +150,31 @@ const DisplayCoolingshelterModalWindow: React.FC<
             }}
           >
             <Typography sx={{ ml: 2 }}>
-              {!hasWaterServer &&
-                !hasDesk &&
-                !hasChair &&
-                !hasPowerOutlet &&
-                !hasTv && <Typography>ー</Typography>}
+              {!waterCooler &&
+                !waterServer &&
+                !vendingMachine &&
+                !vendingMachine &&
+                !drinkingWaterProvided &&
+                !installationPlanned && <Typography>ー</Typography>}
             </Typography>
-            {hasWaterServer && (
-              <Typography sx={nursingRoomStyle}>ウォーターサーバー</Typography>
+            {waterCooler && (
+              <Typography sx={nursingRoomStyle}>冷水器</Typography>
             )}
-            {hasDesk && <Typography sx={anyoneToiletStyle}>机</Typography>}
-            {hasChair && (
-              <Typography sx={diaperChangingStationStyle}>椅子</Typography>
+            {waterServer && (
+              <Typography sx={anyoneToiletStyle}>ウォーターサーバー</Typography>
             )}
-            {hasPowerOutlet && (
-              <Typography sx={powderCornerStyle}>電源</Typography>
+            {vendingMachine && (
+              <Typography sx={diaperChangingStationStyle}>
+                自動販売機あり
+              </Typography>
             )}
-            {hasTv && (
-              <Typography sx={strollerAccessibleStyle}>テレビ</Typography>
+            {drinkingWaterProvided && (
+              <Typography sx={powderCornerStyle}>飲料水の提供</Typography>
+            )}
+            {installationPlanned && (
+              <Typography sx={strollerAccessibleStyle}>設置予定</Typography>
             )}
           </Box>
-          <Typography variant="h6" sx={{ fontWeight: 'bold', mt: 1 }}>
-            受入可能人数
-          </Typography>
-          <Typography sx={{ ml: 2 }}>{capacity ? capacity : 'ー'}人</Typography>
           <Typography variant="h6" sx={{ fontWeight: 'bold', mt: 1 }}>
             備考
           </Typography>
