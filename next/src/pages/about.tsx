@@ -49,7 +49,7 @@ const About: NextPage = () => {
             mb: { xs: 2, md: 3 },
           }}
         >
-          Quick Clean Restroom Map で
+          涼快あんしんナビ で
         </Typography>
         <Typography
           variant="h3"
@@ -60,9 +60,7 @@ const About: NextPage = () => {
             fontSize: { xs: '26px', md: '36px' },
             mb: { xs: 2, md: 3 },
           }}
-        >
-          きれいなトイレを見つけよう
-        </Typography>
+        ></Typography>
       </Box>
       <Box sx={{ textAlign: 'center', mt: 10 }}>
         <Typography variant="h6" component="p">
@@ -72,7 +70,7 @@ const About: NextPage = () => {
 
       <Box sx={{ mt: 4 }}>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={4} mb={4}>
             <Card sx={{ ...cardStyle }}>
               <CardMedia>
                 <Image
@@ -95,13 +93,12 @@ const About: NextPage = () => {
                   component="p"
                   sx={{ textAlign: 'left', color: 'black' }}
                 >
-                  あなたの現在位置から近い清潔なトイレをすぐに見つけることができます。
-                  駅、ショッピングセンター、オフィスビルなどのトイレを紹介しています。
+                  市内の天気について調べる
                 </Typography>
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={4} mb={4}>
             <Card sx={{ ...cardStyle }}>
               <CardMedia>
                 <Image
@@ -124,13 +121,12 @@ const About: NextPage = () => {
                   component="p"
                   sx={{ textAlign: 'left', color: 'black' }}
                 >
-                  ナビゲーション機能を使って、迷うことなく直接トイレまで案内します。
-                  歩行者向けや公共交通機関を使ったルートのオプションも提供します。
+                  省エネ・再エネ
                 </Typography>
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={4} mb={4}>
             <Card sx={{ ...cardStyle }}>
               <CardMedia>
                 <Image
@@ -153,8 +149,91 @@ const About: NextPage = () => {
                   component="p"
                   sx={{ textAlign: 'left', color: 'black' }}
                 >
-                  自分が訪れたきれいなトイレを新たに登録することができます。
-                  また、自動でトイレの清潔さを評価する機能を搭載しています。
+                  家の中でできる暑さ対策
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={4} mb={4}>
+            <Card sx={{ ...cardStyle }}>
+              <CardMedia>
+                <Image
+                  src="/point3.png"
+                  alt="Point 3"
+                  width={300}
+                  height={300}
+                />
+              </CardMedia>
+              <CardContent>
+                <Typography
+                  variant="h6"
+                  component="p"
+                  sx={{ textAlign: 'center', mb: 2, color: '#3f51b5' }}
+                >
+                  \ P O I N T 4 /
+                </Typography>
+                <Typography
+                  variant="body1"
+                  component="p"
+                  sx={{ textAlign: 'left', color: 'black' }}
+                >
+                  外でできる暑さ対策
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={4} mb={4}>
+            <Card sx={{ ...cardStyle }}>
+              <CardMedia>
+                <Image
+                  src="/point3.png"
+                  alt="Point 3"
+                  width={300}
+                  height={300}
+                />
+              </CardMedia>
+              <CardContent>
+                <Typography
+                  variant="h6"
+                  component="p"
+                  sx={{ textAlign: 'center', mb: 2, color: '#3f51b5' }}
+                >
+                  \ P O I N T 5 /
+                </Typography>
+                <Typography
+                  variant="body1"
+                  component="p"
+                  sx={{ textAlign: 'left', color: 'black' }}
+                >
+                  熱中症かなと思ったら？
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={4} mb={4}>
+            <Card sx={{ ...cardStyle }}>
+              <CardMedia>
+                <Image
+                  src="/point3.png"
+                  alt="Point 3"
+                  width={300}
+                  height={300}
+                />
+              </CardMedia>
+              <CardContent>
+                <Typography
+                  variant="h6"
+                  component="p"
+                  sx={{ textAlign: 'center', mb: 2, color: '#3f51b5' }}
+                >
+                  \ P O I N T 6 /
+                </Typography>
+                <Typography
+                  variant="body1"
+                  component="p"
+                  sx={{ textAlign: 'left', color: 'black' }}
+                >
+                  救急を呼ぶとき
                 </Typography>
               </CardContent>
             </Card>
@@ -162,7 +241,7 @@ const About: NextPage = () => {
         </Grid>
       </Box>
 
-      <Box sx={{ textAlign: 'center', mt: 10 }}>
+      {/* <Box sx={{ textAlign: 'center', mt: 10 }}>
         <Typography variant="h6" component="p">
           \ S E A R C H /
         </Typography>
@@ -175,7 +254,7 @@ const About: NextPage = () => {
           </WaterserverProvider>
         </CoolingshelterProvider>
         <Box id="map" style={{ height: '80vh', width: '100%' }}></Box>
-      </Box>
+      </Box> */}
     </Container>
   )
 }
