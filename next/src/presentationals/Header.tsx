@@ -75,7 +75,7 @@ const Header: React.FC<HeaderProps> = ({
                   textDecoration: 'none',
                 }}
               >
-                三鷹市熱中症予防案内サイト
+                涼快あんしんナビ
               </Typography>
             </Link>
           </Box>
