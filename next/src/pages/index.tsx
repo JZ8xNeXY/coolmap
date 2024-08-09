@@ -1,6 +1,15 @@
-import DownloadIcon from '@mui/icons-material/Download'
+// import DownloadIcon from '@mui/icons-material/Download'
 import WarningIcon from '@mui/icons-material/Warning'
-import { Box, Container, Typography, Paper, Grid, Link } from '@mui/material'
+import {
+  Box,
+  Container,
+  Typography,
+  Paper,
+  Grid,
+  Link,
+  Card,
+  CardMedia,
+} from '@mui/material'
 import axios from 'axios'
 import type { NextPage } from 'next'
 import Image from 'next/image'
@@ -15,6 +24,26 @@ import { loadGoogleMapsAPI } from '@/utils/loadGoogleMapsAPI'
 import { userGeoLocation } from '@/utils/userGeoLocation'
 import { getWeatherData } from '@/utils/weather'
 
+const cardStyle = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  boxShadow: '0 4px 8px rgba(100, 149, 237, 0.2)',
+  transition: 'transform 0.3s, box-shadow 0.3s',
+  '&:hover': {
+    transform: 'scale(1.05)',
+    boxShadow: '0 8px 16px rgba(100, 149, 237, 0.3)',
+  },
+  borderRadius: '8px',
+  padding: '16px',
+  backgroundColor: '#f0f8ff',
+}
+
+const linkStyle = {
+  textDecoration: 'none',
+  color: '#1e90ff',
+}
+
 const Index: NextPage = () => {
   const [map, setMap] = useState<google.maps.Map | null>(null)
   const [openAddRestroomModal, setOpenAddRestroomModal] = useState(false)
@@ -22,7 +51,7 @@ const Index: NextPage = () => {
     null,
   )
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [weather, setWeather] = useState<any>(null)
+  const [, setWeather] = useState<any>(null)
   const [data, setData] = useState({ wbgtIndex: null, targetDate: null })
   const [loading, setLoading] = useState(true)
 
@@ -67,57 +96,23 @@ const Index: NextPage = () => {
       maxWidth="xl"
       sx={{
         padding: '2rem',
-        background: 'linear-gradient(135deg, #003300 30%, #006400 90%)',
+        background: '',
         color: '#e0f2f1',
         minHeight: '100vh',
       }}
     >
       <Box mt={4} sx={{ textAlign: 'center' }}>
-        <Paper
-          elevation={3}
-          sx={{
-            display: 'inline-block',
-            padding: '1rem 2rem',
-            backgroundColor: '#ff7043',
-            color: '#ffffff',
-            borderRadius: '1rem',
-            boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)',
-            textAlign: 'center',
-          }}
-        >
-          <WarningIcon
-            sx={{
-              fontSize: 40,
-              verticalAlign: 'middle',
-              marginRight: '0.5rem',
-            }}
-          />
-          <Typography
-            variant="h5"
-            sx={{
-              fontWeight: 'bold',
-              display: 'inline-block',
-              verticalAlign: 'middle',
-            }}
-          >
-            暑さ指数：{data.wbgtIndex}
-          </Typography>
-        </Paper>
-        {data.wbgtIndex === '危険 熱中症の危険性が高まっています' && (
+        <Box mb={2}>
           <Paper
             elevation={3}
             sx={{
               display: 'inline-block',
-              marginTop: '1rem',
               padding: '1rem 2rem',
-              backgroundColor: '#C801FF',
-              color: '#000000',
+              backgroundColor: '#ff7043',
+              color: '#ffffff',
               borderRadius: '1rem',
-              border: '2px solid white',
-              WebkitTextStroke: '1px white',
-              fontWeight: 'bold',
-              textAlign: 'center',
               boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)',
+              textAlign: 'center',
             }}
           >
             <WarningIcon
@@ -135,12 +130,163 @@ const Index: NextPage = () => {
                 verticalAlign: 'middle',
               }}
             >
-              熱中症警戒アラート発表中
+              暑さ指数：{data.wbgtIndex}
             </Typography>
           </Paper>
+        </Box>
+
+        {data.wbgtIndex === '危険 熱中症の危険性が高まっています' && (
+          <Box mt={2}>
+            <Paper
+              elevation={3}
+              sx={{
+                display: 'inline-block',
+                marginTop: '1rem',
+                padding: '1rem 2rem',
+                backgroundColor: '#800080', // 背景色をダークパープルに変更
+                color: '#ffffff', // テキストを白に
+                borderRadius: '1rem',
+                fontWeight: 'bold',
+                textAlign: 'center',
+                boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)',
+              }}
+            >
+              <WarningIcon
+                sx={{
+                  fontSize: 40,
+                  verticalAlign: 'middle',
+                  marginRight: '0.5rem',
+                }}
+              />
+              <Typography
+                variant="h5"
+                sx={{
+                  fontWeight: 'bold',
+                  display: 'inline-block',
+                  verticalAlign: 'middle',
+                }}
+              >
+                熱中症警戒アラート発表中
+              </Typography>
+            </Paper>
+          </Box>
         )}
       </Box>
-      <Box mb={4} sx={{ textAlign: 'center' }}>
+      <Box sx={{ mb: '4', textAlign: 'center' }}>
+        <Typography
+          variant="h3"
+          gutterBottom
+          sx={{
+            fontWeight: 'bold',
+            color: '#000000',
+            marginBottom: '2rem',
+            textTransform: 'uppercase',
+            letterSpacing: '2px',
+            marginTop: '100px',
+          }}
+        >
+          外でできる暑さ対策
+        </Typography>
+      </Box>
+      <Box sx={{ mt: 8 }}>
+        <Grid container spacing={4}>
+          <Grid item xs={12} sm={6} md={4} mb={4}>
+            <Link
+              href="https://tenki.jp/forecast/3/16/4410/13204/3hours.html#google_vignette"
+              sx={linkStyle}
+            >
+              <Card sx={{ ...cardStyle }}>
+                <CardMedia>
+                  <Image
+                    src="/adaptation1.png"
+                    alt="Point 1"
+                    width={300}
+                    height={375}
+                  />
+                </CardMedia>
+              </Card>
+            </Link>
+          </Grid>
+          <Grid item xs={12} sm={6} md={4} mb={4}>
+            <Link href="/" sx={linkStyle}>
+              <Card sx={{ ...cardStyle }}>
+                <CardMedia>
+                  <Image
+                    src="/adaptation2.png"
+                    alt="Point 2"
+                    width={300}
+                    height={375}
+                  />
+                </CardMedia>
+              </Card>
+            </Link>
+          </Grid>
+          <Grid item xs={12} sm={6} md={4} mb={4}>
+            <Link href="/" sx={linkStyle}>
+              <Card sx={{ ...cardStyle }}>
+                <CardMedia>
+                  <Image
+                    src="/adaptation3.png"
+                    alt="Point 3"
+                    width={300}
+                    height={375}
+                  />
+                </CardMedia>
+              </Card>
+            </Link>
+          </Grid>
+        </Grid>
+      </Box>
+      <Box sx={{ mt: 8 }}>
+        <Grid container spacing={4}>
+          <Grid item xs={12} sm={6} md={4} mb={4}>
+            <Link
+              href="https://tenki.jp/forecast/3/16/4410/13204/3hours.html#google_vignette"
+              sx={linkStyle}
+            >
+              <Card sx={{ ...cardStyle }}>
+                <CardMedia>
+                  <Image
+                    src="/adaptation4.png"
+                    alt="Point 1"
+                    width={300}
+                    height={375}
+                  />
+                </CardMedia>
+              </Card>
+            </Link>
+          </Grid>
+          <Grid item xs={12} sm={6} md={4} mb={4}>
+            <Link href="/" sx={linkStyle}>
+              <Card sx={{ ...cardStyle }}>
+                <CardMedia>
+                  <Image
+                    src="/adaptation5.png"
+                    alt="Point 2"
+                    width={300}
+                    height={375}
+                  />
+                </CardMedia>
+              </Card>
+            </Link>
+          </Grid>
+          <Grid item xs={12} sm={6} md={4} mb={4}>
+            <Link href="/" sx={linkStyle}>
+              <Card sx={{ ...cardStyle }}>
+                <CardMedia>
+                  <Image
+                    src="/adaptation6.png"
+                    alt="Point 3"
+                    width={300}
+                    height={375}
+                  />
+                </CardMedia>
+              </Card>
+            </Link>
+          </Grid>
+        </Grid>
+      </Box>
+      {/* <Box mb={4} sx={{ textAlign: 'center' }}>
         <Typography
           variant="h3"
           gutterBottom
@@ -242,20 +388,34 @@ const Index: NextPage = () => {
               </Grid>
             ))}
         </Grid>
-      </Box>
-      <Box mb={4} sx={{ textAlign: 'center' }}>
+      </Box> */}
+      <Box sx={{ mb: '4', textAlign: 'center' }}>
         <Typography
           variant="h3"
           gutterBottom
           sx={{
             fontWeight: 'bold',
-            color: '#ffffff',
+            color: '#000000',
+            marginBottom: '2rem',
+            textTransform: 'uppercase',
+            letterSpacing: '2px',
+            marginTop: '100px',
+          }}
+        >
+          休憩所情報
+        </Typography>
+        <Typography
+          variant="h4"
+          gutterBottom
+          sx={{
+            fontWeight: 'bold',
+            color: '#000000',
             marginBottom: '2rem',
             textTransform: 'uppercase',
             letterSpacing: '2px',
           }}
         >
-          市内休憩所情報
+          休憩所として市内の公共施設にお立ち寄りください
         </Typography>
       </Box>
       <SessionProvider>
@@ -281,7 +441,7 @@ const Index: NextPage = () => {
           boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)',
         }}
       ></Box>
-      <Box mb={4} sx={{ textAlign: 'center' }}>
+      {/* <Box mb={4} sx={{ textAlign: 'center' }}>
         <Typography
           variant="h3"
           gutterBottom
@@ -339,7 +499,7 @@ const Index: NextPage = () => {
             </Typography>
           </Box>
         </Link>
-      </Box>
+      </Box> */}
     </Container>
   )
 }

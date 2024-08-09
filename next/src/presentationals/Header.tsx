@@ -1,4 +1,4 @@
-import AddLocationIcon from '@mui/icons-material/AddLocation'
+// import AddLocationIcon from '@mui/icons-material/AddLocation'
 import MenuIcon from '@mui/icons-material/Menu'
 import {
   AppBar,
@@ -11,7 +11,7 @@ import {
 } from '@mui/material'
 import Link from 'next/link'
 import React from 'react'
-import AddSimpleRestroomContainer from '@/containers/AddSimpleRestroomContainer'
+// import AddSimpleRestroomContainer from '@/containers/AddSimpleRestroomContainer'
 
 interface UserProps {
   email: string
@@ -33,19 +33,19 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({
-  user,
+  // user,
   isOpen,
   openDrawer,
-  openAddSimpleRestroomModal,
-  setOpenAddSimpleRestroomModal,
+  // openAddSimpleRestroomModal,
+  // setOpenAddSimpleRestroomModal,
   list,
 }) => {
   return (
     <AppBar
       position="static"
       sx={{
-        backgroundColor: '#004d40',
-        color: '#e0f2f1',
+        backgroundColor: '#1e3d60',
+        color: '#ffffff',
         boxShadow: 'none',
         py: '12px',
       }}
@@ -75,11 +75,11 @@ const Header: React.FC<HeaderProps> = ({
                   textDecoration: 'none',
                 }}
               >
-                三鷹市熱中症予防案内サイト
+                涼快あんしんナビ
               </Typography>
             </Link>
           </Box>
-          {user && (
+          {/* {user && (
             <Typography
               variant="body1"
               component="div"
@@ -87,8 +87,8 @@ const Header: React.FC<HeaderProps> = ({
             >
               管理者権限でログイン中
             </Typography>
-          )}
-          <IconButton
+          )} */}
+          {/* <IconButton
             edge="end"
             color="inherit"
             aria-label="add location"
@@ -99,7 +99,7 @@ const Header: React.FC<HeaderProps> = ({
           <AddSimpleRestroomContainer
             open={openAddSimpleRestroomModal}
             onClose={() => setOpenAddSimpleRestroomModal(false)}
-          />
+          /> */}
         </Toolbar>
       </Container>
     </AppBar>
