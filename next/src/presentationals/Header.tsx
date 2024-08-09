@@ -33,7 +33,7 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({
-  user,
+  // user,
   isOpen,
   openDrawer,
   // openAddSimpleRestroomModal,
