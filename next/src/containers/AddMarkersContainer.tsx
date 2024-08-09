@@ -161,8 +161,8 @@ const AddMarkersContainer: NextPage<AddMarkersProps> = ({ map }) => {
           const waterserverImg = document.createElement('img')
           waterserverImg.src = '/waterserver.png'
           waterserverImg.alt = waterserver.name
-          waterserverImg.width = 75
-          waterserverImg.height = 75
+          waterserverImg.width = 40
+          waterserverImg.height = 40
 
           const waterserverMarker = new AdvancedMarkerElement({
             map,

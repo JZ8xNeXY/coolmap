@@ -1,6 +1,15 @@
-import DownloadIcon from '@mui/icons-material/Download'
+// import DownloadIcon from '@mui/icons-material/Download'
 import WarningIcon from '@mui/icons-material/Warning'
-import { Box, Container, Typography, Paper, Grid, Link } from '@mui/material'
+import {
+  Box,
+  Container,
+  Typography,
+  Paper,
+  Grid,
+  Link,
+  Card,
+  CardMedia,
+} from '@mui/material'
 import axios from 'axios'
 import type { NextPage } from 'next'
 import Image from 'next/image'
@@ -14,6 +23,26 @@ import { RightClickMapHandler } from '@/utils/RightClickMapHandler'
 import { loadGoogleMapsAPI } from '@/utils/loadGoogleMapsAPI'
 import { userGeoLocation } from '@/utils/userGeoLocation'
 import { getWeatherData } from '@/utils/weather'
+
+const cardStyle = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  boxShadow: '0 4px 8px rgba(100, 149, 237, 0.2)',
+  transition: 'transform 0.3s, box-shadow 0.3s',
+  '&:hover': {
+    transform: 'scale(1.05)',
+    boxShadow: '0 8px 16px rgba(100, 149, 237, 0.3)',
+  },
+  borderRadius: '8px',
+  padding: '16px',
+  backgroundColor: '#f0f8ff',
+}
+
+const linkStyle = {
+  textDecoration: 'none',
+  color: '#1e90ff',
+}
 
 const Index: NextPage = () => {
   const [map, setMap] = useState<google.maps.Map | null>(null)
@@ -67,7 +96,7 @@ const Index: NextPage = () => {
       maxWidth="xl"
       sx={{
         padding: '2rem',
-        background: 'linear-gradient(135deg, #003300 30%, #006400 90%)',
+        background: '',
         color: '#e0f2f1',
         minHeight: '100vh',
       }}
@@ -142,6 +171,120 @@ const Index: NextPage = () => {
             </Paper>
           </Box>
         )}
+      </Box>
+      <Box sx={{ mb: '4', textAlign: 'center' }}>
+        <Typography
+          variant="h3"
+          gutterBottom
+          sx={{
+            fontWeight: 'bold',
+            color: '#000000',
+            marginBottom: '2rem',
+            textTransform: 'uppercase',
+            letterSpacing: '2px',
+            marginTop: '100px',
+          }}
+        >
+          外でできる暑さ対策
+        </Typography>
+      </Box>
+      <Box sx={{ mt: 8 }}>
+        <Grid container spacing={4}>
+          <Grid item xs={12} sm={6} md={4} mb={4}>
+            <Link
+              href="https://tenki.jp/forecast/3/16/4410/13204/3hours.html#google_vignette"
+              sx={linkStyle}
+            >
+              <Card sx={{ ...cardStyle }}>
+                <CardMedia>
+                  <Image
+                    src="/adaptation1.png"
+                    alt="Point 1"
+                    width={300}
+                    height={375}
+                  />
+                </CardMedia>
+              </Card>
+            </Link>
+          </Grid>
+          <Grid item xs={12} sm={6} md={4} mb={4}>
+            <Link href="/" sx={linkStyle}>
+              <Card sx={{ ...cardStyle }}>
+                <CardMedia>
+                  <Image
+                    src="/adaptation2.png"
+                    alt="Point 2"
+                    width={300}
+                    height={375}
+                  />
+                </CardMedia>
+              </Card>
+            </Link>
+          </Grid>
+          <Grid item xs={12} sm={6} md={4} mb={4}>
+            <Link href="/" sx={linkStyle}>
+              <Card sx={{ ...cardStyle }}>
+                <CardMedia>
+                  <Image
+                    src="/adaptation3.png"
+                    alt="Point 3"
+                    width={300}
+                    height={375}
+                  />
+                </CardMedia>
+              </Card>
+            </Link>
+          </Grid>
+        </Grid>
+      </Box>
+      <Box sx={{ mt: 8 }}>
+        <Grid container spacing={4}>
+          <Grid item xs={12} sm={6} md={4} mb={4}>
+            <Link
+              href="https://tenki.jp/forecast/3/16/4410/13204/3hours.html#google_vignette"
+              sx={linkStyle}
+            >
+              <Card sx={{ ...cardStyle }}>
+                <CardMedia>
+                  <Image
+                    src="/adaptation4.png"
+                    alt="Point 1"
+                    width={300}
+                    height={375}
+                  />
+                </CardMedia>
+              </Card>
+            </Link>
+          </Grid>
+          <Grid item xs={12} sm={6} md={4} mb={4}>
+            <Link href="/" sx={linkStyle}>
+              <Card sx={{ ...cardStyle }}>
+                <CardMedia>
+                  <Image
+                    src="/adaptation5.png"
+                    alt="Point 2"
+                    width={300}
+                    height={375}
+                  />
+                </CardMedia>
+              </Card>
+            </Link>
+          </Grid>
+          <Grid item xs={12} sm={6} md={4} mb={4}>
+            <Link href="/" sx={linkStyle}>
+              <Card sx={{ ...cardStyle }}>
+                <CardMedia>
+                  <Image
+                    src="/adaptation6.png"
+                    alt="Point 3"
+                    width={300}
+                    height={375}
+                  />
+                </CardMedia>
+              </Card>
+            </Link>
+          </Grid>
+        </Grid>
       </Box>
       {/* <Box mb={4} sx={{ textAlign: 'center' }}>
         <Typography
@@ -252,14 +395,27 @@ const Index: NextPage = () => {
           gutterBottom
           sx={{
             fontWeight: 'bold',
-            color: '#ffffff',
+            color: '#000000',
             marginBottom: '2rem',
             textTransform: 'uppercase',
             letterSpacing: '2px',
-            marginTop: '30px',
+            marginTop: '100px',
           }}
         >
-          市内休憩所情報
+          休憩所情報
+        </Typography>
+        <Typography
+          variant="h4"
+          gutterBottom
+          sx={{
+            fontWeight: 'bold',
+            color: '#000000',
+            marginBottom: '2rem',
+            textTransform: 'uppercase',
+            letterSpacing: '2px',
+          }}
+        >
+          休憩所として市内の公共施設にお立ち寄りください
         </Typography>
       </Box>
       <SessionProvider>
