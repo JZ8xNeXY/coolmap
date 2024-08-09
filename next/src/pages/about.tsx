@@ -15,10 +15,10 @@ import axios from 'axios'
 import type { NextPage } from 'next'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import { getWeatherData } from '@/utils/weather'
+// import { getWeatherData } from '@/utils/weather'
 
 const bannerStyle = {
-  backgroundImage: 'url(/cool-banner.png)',
+  backgroundImage: 'url(/banner.png)',
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   color: 'white',
@@ -91,7 +91,7 @@ const About: NextPage = () => {
   return (
     <Container
       maxWidth="lg" // デスクトップでの横幅を広げるためにlgに設定
-      sx={{ px: { xs: 2, md: 4 }, mt: { xs: 2, md: 4 } }}
+      sx={{ px: { xs: 2, md: 4 }, mt: { xs: 4, md: 6 } }}
     >
       {/* バナー */}
       <Box sx={bannerStyle}></Box>
@@ -169,7 +169,7 @@ const About: NextPage = () => {
       </Box>
 
       {/* タイトルと説明文 */}
-      <Box sx={{ padding: '40px 0' }}>
+      <Box sx={{ padding: '30px 0' }}>
         <Typography variant="body1" sx={descriptionStyle}>
           熱中症から身を守るため、万全の準備を。
         </Typography>
@@ -178,8 +178,8 @@ const About: NextPage = () => {
         </Typography>
       </Box>
 
-      <Box sx={{ mt: 4 }}>
-        <Grid container spacing={3}>
+      <Box sx={{ mt: 8 }}>
+        <Grid container spacing={4}>
           <Grid item xs={12} sm={6} md={4} mb={4}>
             <Link
               href="https://tenki.jp/forecast/3/16/4410/13204/3hours.html#google_vignette"
@@ -188,7 +188,7 @@ const About: NextPage = () => {
               <Card sx={{ ...cardStyle }}>
                 <CardMedia>
                   <Image
-                    src="/point1.png"
+                    src="/weather.png"
                     alt="Point 1"
                     width={300}
                     height={300}
@@ -217,7 +217,7 @@ const About: NextPage = () => {
                       lineHeight: '1.5',
                     }}
                   >
-                    現在の気温や湿度、熱中症警戒情報を表示します
+                    現在の気温や湿度、熱中症警戒情報を表示
                   </Typography>
                   <Box sx={{ textAlign: 'center' }}>
                     <Button sx={actionButtonStyle}>詳細を見る</Button>
@@ -231,7 +231,7 @@ const About: NextPage = () => {
               <Card sx={{ ...cardStyle }}>
                 <CardMedia>
                   <Image
-                    src="/point2.png"
+                    src="/indoorCoolingTips.png"
                     alt="Point 2"
                     width={300}
                     height={300}
@@ -260,7 +260,7 @@ const About: NextPage = () => {
                       lineHeight: '1.5',
                     }}
                   >
-                    断熱や省エネエアコン導入のヒントを提供します
+                    断熱や省エネエアコン導入のヒントを提供
                   </Typography>
                   <Box sx={{ textAlign: 'center' }}>
                     <Button sx={actionButtonStyle}>詳細を見る</Button>
@@ -274,7 +274,7 @@ const About: NextPage = () => {
               <Card sx={{ ...cardStyle }}>
                 <CardMedia>
                   <Image
-                    src="/point3.png"
+                    src="/outdoorCoolingTips.png"
                     alt="Point 3"
                     width={300}
                     height={300}
@@ -303,7 +303,7 @@ const About: NextPage = () => {
                       lineHeight: '1.5',
                     }}
                   >
-                    屋外での涼しさを保つための工夫や涼みどころを紹介
+                    外で涼しく過ごす工夫や涼みどころを紹介
                   </Typography>
                   <Box sx={{ textAlign: 'center' }}>
                     <Button sx={actionButtonStyle}>詳細を見る</Button>
@@ -317,7 +317,7 @@ const About: NextPage = () => {
               <Card sx={{ ...cardStyle }}>
                 <CardMedia>
                   <Image
-                    src="/point3.png"
+                    src="/selfcheck.png"
                     alt="Point 3"
                     width={300}
                     height={300}
@@ -346,7 +346,7 @@ const About: NextPage = () => {
                       lineHeight: '1.5',
                     }}
                   >
-                    熱中症の初期症状を早期発見するためのセルフチェック
+                    初期症状を早期発見するためのセルフチェック
                   </Typography>
                   <Box sx={{ textAlign: 'center' }}>
                     <Button sx={actionButtonStyle}>詳細を見る</Button>
@@ -360,7 +360,7 @@ const About: NextPage = () => {
               <Card sx={{ ...cardStyle }}>
                 <CardMedia>
                   <Image
-                    src="/point3.png"
+                    src="/firstAid.png"
                     alt="Point 3"
                     width={300}
                     height={300}
@@ -377,7 +377,7 @@ const About: NextPage = () => {
                       fontSize: { xs: '16px', md: '18px' },
                     }}
                   >
-                    緊急連絡先と対処法
+                    応急処置
                   </Typography>
                   <Typography
                     variant="body2"
@@ -389,7 +389,7 @@ const About: NextPage = () => {
                       lineHeight: '1.5',
                     }}
                   >
-                    緊急時の連絡先と適切な対応方法を提供します
+                    緊急時の適切な対応方法を提供
                   </Typography>
                   <Box sx={{ textAlign: 'center' }}>
                     <Button sx={actionButtonStyle}>詳細を見る</Button>
@@ -406,7 +406,7 @@ const About: NextPage = () => {
               <Card sx={{ ...cardStyle }}>
                 <CardMedia>
                   <Image
-                    src="/point3.png"
+                    src="/festival.png"
                     alt="Point 3"
                     width={300}
                     height={300}
@@ -435,7 +435,7 @@ const About: NextPage = () => {
                       lineHeight: '1.5',
                     }}
                   >
-                    暑さ対策に関する各種イベント情報を案内します
+                    暑さ対策に関する各種イベント情報を案内
                   </Typography>
                   <Box sx={{ textAlign: 'center' }}>
                     <Button sx={actionButtonStyle}>詳細を見る</Button>
