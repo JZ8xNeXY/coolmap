@@ -1,4 +1,4 @@
-import AddLocationIcon from '@mui/icons-material/AddLocation'
+// import AddLocationIcon from '@mui/icons-material/AddLocation'
 import MenuIcon from '@mui/icons-material/Menu'
 import {
   AppBar,
@@ -11,7 +11,7 @@ import {
 } from '@mui/material'
 import Link from 'next/link'
 import React from 'react'
-import AddSimpleRestroomContainer from '@/containers/AddSimpleRestroomContainer'
+// import AddSimpleRestroomContainer from '@/containers/AddSimpleRestroomContainer'
 
 interface UserProps {
   email: string
@@ -36,8 +36,8 @@ const Header: React.FC<HeaderProps> = ({
   user,
   isOpen,
   openDrawer,
-  openAddSimpleRestroomModal,
-  setOpenAddSimpleRestroomModal,
+  // openAddSimpleRestroomModal,
+  // setOpenAddSimpleRestroomModal,
   list,
 }) => {
   return (
