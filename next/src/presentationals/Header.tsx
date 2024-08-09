@@ -44,8 +44,8 @@ const Header: React.FC<HeaderProps> = ({
     <AppBar
       position="static"
       sx={{
-        backgroundColor: '#004d40',
-        color: '#e0f2f1',
+        backgroundColor: '#1e3d60',
+        color: '#ffffff',
         boxShadow: 'none',
         py: '12px',
       }}
@@ -79,7 +79,7 @@ const Header: React.FC<HeaderProps> = ({
               </Typography>
             </Link>
           </Box>
-          {user && (
+          {/* {user && (
             <Typography
               variant="body1"
               component="div"
@@ -87,8 +87,8 @@ const Header: React.FC<HeaderProps> = ({
             >
               管理者権限でログイン中
             </Typography>
-          )}
-          <IconButton
+          )} */}
+          {/* <IconButton
             edge="end"
             color="inherit"
             aria-label="add location"
@@ -99,7 +99,7 @@ const Header: React.FC<HeaderProps> = ({
           <AddSimpleRestroomContainer
             open={openAddSimpleRestroomModal}
             onClose={() => setOpenAddSimpleRestroomModal(false)}
-          />
+          /> */}
         </Toolbar>
       </Container>
     </AppBar>

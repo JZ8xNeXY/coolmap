@@ -1,260 +1,451 @@
+import WarningIcon from '@mui/icons-material/Warning'
 import {
   Box,
   Container,
   Typography,
   Grid,
+  Button,
   Card,
+  Link,
   CardMedia,
   CardContent,
+  Paper,
 } from '@mui/material'
+import axios from 'axios'
 import type { NextPage } from 'next'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import AddMarkersContainer from '@/containers/AddMarkersContainer'
-import { CoolingshelterProvider } from '@/context/CoolingshelterContext'
-import { WaterserverProvider } from '@/context/WaterserverContext'
-import { loadGoogleMapsAPI } from '@/utils/loadGoogleMapsAPI'
+import { getWeatherData } from '@/utils/weather'
+
+const bannerStyle = {
+  backgroundImage: 'url(/cool-banner.png)',
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+  color: 'white',
+  padding: '60px 20px',
+  textAlign: 'center',
+  borderRadius: '8px',
+  marginBottom: '30px',
+  position: 'relative',
+  height: '400px', // バナーの高さを設定
+}
+
+const descriptionStyle = {
+  color: 'black',
+  fontSize: { xs: '24px', md: '24px' },
+  lineHeight: '1.8',
+  textAlign: 'center',
+  maxWidth: '800px',
+  margin: '0 auto',
+}
 
 const cardStyle = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-  transition: 'transform 0.3s',
+  boxShadow: '0 4px 8px rgba(100, 149, 237, 0.2)',
+  transition: 'transform 0.3s, box-shadow 0.3s',
   '&:hover': {
     transform: 'scale(1.05)',
+    boxShadow: '0 8px 16px rgba(100, 149, 237, 0.3)',
+  },
+  borderRadius: '8px',
+  padding: '16px',
+  backgroundColor: '#f0f8ff',
+}
+
+const linkStyle = {
+  textDecoration: 'none',
+  color: '#1e90ff',
+}
+
+const actionButtonStyle = {
+  marginTop: '16px',
+  padding: '8px 16px',
+  backgroundColor: '#1e90ff',
+  color: 'white',
+  borderRadius: '4px',
+  textDecoration: 'none',
+  textAlign: 'center',
+  '&:hover': {
+    backgroundColor: '#4682b4',
   },
 }
 
 const About: NextPage = () => {
-  const [map, setMap] = useState<google.maps.Map | null>(null)
+  const [data, setData] = useState({ wbgtIndex: null, targetDate: null })
 
   useEffect(() => {
-    loadGoogleMapsAPI(setMap)
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('/api/wbgt')
+        setData(response.data)
+      } catch (error) {
+        console.error('データ取得に失敗しました', error)
+      }
+    }
+
+    fetchData()
   }, [])
 
   return (
     <Container
-      maxWidth="md"
+      maxWidth="lg" // デスクトップでの横幅を広げるためにlgに設定
       sx={{ px: { xs: 2, md: 4 }, mt: { xs: 2, md: 4 } }}
     >
-      <Box sx={{ textAlign: 'center', mt: 2 }}>
-        <Typography
-          variant="h3"
-          component="h3"
-          sx={{
-            fontWeight: 'bold',
-            color: '#3f51b5',
-            fontSize: { xs: '26px', md: '36px' },
-            mb: { xs: 2, md: 3 },
-          }}
-        >
-          涼快あんしんナビ で
-        </Typography>
-        <Typography
-          variant="h3"
-          component="h3"
-          sx={{
-            fontWeight: 'bold',
-            color: '#3f51b5',
-            fontSize: { xs: '26px', md: '36px' },
-            mb: { xs: 2, md: 3 },
-          }}
-        ></Typography>
+      {/* バナー */}
+      <Box sx={bannerStyle}></Box>
+
+      <Box mt={4} sx={{ textAlign: 'center' }}>
+        <Box mb={2}>
+          <Paper
+            elevation={3}
+            sx={{
+              display: 'inline-block',
+              padding: '1rem 2rem',
+              backgroundColor: '#ff7043',
+              color: '#ffffff',
+              borderRadius: '1rem',
+              boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)',
+              textAlign: 'center',
+            }}
+          >
+            <WarningIcon
+              sx={{
+                fontSize: 40,
+                verticalAlign: 'middle',
+                marginRight: '0.5rem',
+              }}
+            />
+            <Typography
+              variant="h5"
+              sx={{
+                fontWeight: 'bold',
+                display: 'inline-block',
+                verticalAlign: 'middle',
+              }}
+            >
+              暑さ指数：{data.wbgtIndex}
+            </Typography>
+          </Paper>
+        </Box>
+
+        {data.wbgtIndex === '危険 熱中症の危険性が高まっています' && (
+          <Box mt={2}>
+            <Paper
+              elevation={3}
+              sx={{
+                display: 'inline-block',
+                marginTop: '1rem',
+                padding: '1rem 2rem',
+                backgroundColor: '#800080', // 背景色をダークパープルに変更
+                color: '#ffffff', // テキストを白に
+                borderRadius: '1rem',
+                fontWeight: 'bold',
+                textAlign: 'center',
+                boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)',
+              }}
+            >
+              <WarningIcon
+                sx={{
+                  fontSize: 40,
+                  verticalAlign: 'middle',
+                  marginRight: '0.5rem',
+                }}
+              />
+              <Typography
+                variant="h5"
+                sx={{
+                  fontWeight: 'bold',
+                  display: 'inline-block',
+                  verticalAlign: 'middle',
+                }}
+              >
+                熱中症警戒アラート発表中
+              </Typography>
+            </Paper>
+          </Box>
+        )}
       </Box>
-      <Box sx={{ textAlign: 'center', mt: 10 }}>
-        <Typography variant="h6" component="p">
-          \ P O I N T /
+
+      {/* タイトルと説明文 */}
+      <Box sx={{ padding: '40px 0' }}>
+        <Typography variant="body1" sx={descriptionStyle}>
+          熱中症から身を守るため、万全の準備を。
+        </Typography>
+        <Typography variant="body1" sx={descriptionStyle}>
+          最新の気象情報と効果的な暑さ対策をお届けします。
         </Typography>
       </Box>
 
       <Box sx={{ mt: 4 }}>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={4} mb={4}>
-            <Card sx={{ ...cardStyle }}>
-              <CardMedia>
-                <Image
-                  src="/point1.png"
-                  alt="Point 1"
-                  width={300}
-                  height={300}
-                />
-              </CardMedia>
-              <CardContent>
-                <Typography
-                  variant="h6"
-                  component="p"
-                  sx={{ textAlign: 'center', mb: 2, color: '#3f51b5' }}
-                >
-                  \ P O I N T 1 /
-                </Typography>
-                <Typography
-                  variant="body1"
-                  component="p"
-                  sx={{ textAlign: 'left', color: 'black' }}
-                >
-                  市内の天気について調べる
-                </Typography>
-              </CardContent>
-            </Card>
+          <Grid item xs={12} sm={6} md={4} mb={4}>
+            <Link
+              href="https://tenki.jp/forecast/3/16/4410/13204/3hours.html#google_vignette"
+              sx={linkStyle}
+            >
+              <Card sx={{ ...cardStyle }}>
+                <CardMedia>
+                  <Image
+                    src="/point1.png"
+                    alt="Point 1"
+                    width={300}
+                    height={300}
+                  />
+                </CardMedia>
+                <CardContent>
+                  <Typography
+                    variant="h6"
+                    component="p"
+                    sx={{
+                      textAlign: 'center',
+                      mb: 1.5,
+                      color: '#3f51b5',
+                      fontSize: { xs: '16px', md: '18px' },
+                    }}
+                  >
+                    市内の気象情報
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    component="p"
+                    sx={{
+                      textAlign: 'left',
+                      color: 'black',
+                      fontSize: { xs: '12px', md: '14px' },
+                      lineHeight: '1.5',
+                    }}
+                  >
+                    現在の気温や湿度、熱中症警戒情報を表示します
+                  </Typography>
+                  <Box sx={{ textAlign: 'center' }}>
+                    <Button sx={actionButtonStyle}>詳細を見る</Button>
+                  </Box>
+                </CardContent>
+              </Card>
+            </Link>
           </Grid>
-          <Grid item xs={12} md={4} mb={4}>
-            <Card sx={{ ...cardStyle }}>
-              <CardMedia>
-                <Image
-                  src="/point2.png"
-                  alt="Point 2"
-                  width={300}
-                  height={300}
-                />
-              </CardMedia>
-              <CardContent>
-                <Typography
-                  variant="h6"
-                  component="p"
-                  sx={{ textAlign: 'center', mb: 2, color: '#3f51b5' }}
-                >
-                  \ P O I N T 2 /
-                </Typography>
-                <Typography
-                  variant="body1"
-                  component="p"
-                  sx={{ textAlign: 'left', color: 'black' }}
-                >
-                  省エネ・再エネ
-                </Typography>
-              </CardContent>
-            </Card>
+          <Grid item xs={12} sm={6} md={4} mb={4}>
+            <Link href="/" sx={linkStyle}>
+              <Card sx={{ ...cardStyle }}>
+                <CardMedia>
+                  <Image
+                    src="/point2.png"
+                    alt="Point 2"
+                    width={300}
+                    height={300}
+                  />
+                </CardMedia>
+                <CardContent>
+                  <Typography
+                    variant="h6"
+                    component="p"
+                    sx={{
+                      textAlign: 'center',
+                      mb: 1.5,
+                      color: '#3f51b5',
+                      fontSize: { xs: '16px', md: '18px' },
+                    }}
+                  >
+                    家の中でできる暑さ対策
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    component="p"
+                    sx={{
+                      textAlign: 'left',
+                      color: 'black',
+                      fontSize: { xs: '12px', md: '14px' },
+                      lineHeight: '1.5',
+                    }}
+                  >
+                    断熱や省エネエアコン導入のヒントを提供します
+                  </Typography>
+                  <Box sx={{ textAlign: 'center' }}>
+                    <Button sx={actionButtonStyle}>詳細を見る</Button>
+                  </Box>
+                </CardContent>
+              </Card>
+            </Link>
           </Grid>
-          <Grid item xs={12} md={4} mb={4}>
-            <Card sx={{ ...cardStyle }}>
-              <CardMedia>
-                <Image
-                  src="/point3.png"
-                  alt="Point 3"
-                  width={300}
-                  height={300}
-                />
-              </CardMedia>
-              <CardContent>
-                <Typography
-                  variant="h6"
-                  component="p"
-                  sx={{ textAlign: 'center', mb: 2, color: '#3f51b5' }}
-                >
-                  \ P O I N T 3 /
-                </Typography>
-                <Typography
-                  variant="body1"
-                  component="p"
-                  sx={{ textAlign: 'left', color: 'black' }}
-                >
-                  家の中でできる暑さ対策
-                </Typography>
-              </CardContent>
-            </Card>
+          <Grid item xs={12} sm={6} md={4} mb={4}>
+            <Link href="/" sx={linkStyle}>
+              <Card sx={{ ...cardStyle }}>
+                <CardMedia>
+                  <Image
+                    src="/point3.png"
+                    alt="Point 3"
+                    width={300}
+                    height={300}
+                  />
+                </CardMedia>
+                <CardContent>
+                  <Typography
+                    variant="h6"
+                    component="p"
+                    sx={{
+                      textAlign: 'center',
+                      mb: 1.5,
+                      color: '#3f51b5',
+                      fontSize: { xs: '16px', md: '18px' },
+                    }}
+                  >
+                    外でできる暑さ対策
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    component="p"
+                    sx={{
+                      textAlign: 'left',
+                      color: 'black',
+                      fontSize: { xs: '12px', md: '14px' },
+                      lineHeight: '1.5',
+                    }}
+                  >
+                    屋外での涼しさを保つための工夫や涼みどころを紹介
+                  </Typography>
+                  <Box sx={{ textAlign: 'center' }}>
+                    <Button sx={actionButtonStyle}>詳細を見る</Button>
+                  </Box>
+                </CardContent>
+              </Card>
+            </Link>
           </Grid>
-          <Grid item xs={12} md={4} mb={4}>
-            <Card sx={{ ...cardStyle }}>
-              <CardMedia>
-                <Image
-                  src="/point3.png"
-                  alt="Point 3"
-                  width={300}
-                  height={300}
-                />
-              </CardMedia>
-              <CardContent>
-                <Typography
-                  variant="h6"
-                  component="p"
-                  sx={{ textAlign: 'center', mb: 2, color: '#3f51b5' }}
-                >
-                  \ P O I N T 4 /
-                </Typography>
-                <Typography
-                  variant="body1"
-                  component="p"
-                  sx={{ textAlign: 'left', color: 'black' }}
-                >
-                  外でできる暑さ対策
-                </Typography>
-              </CardContent>
-            </Card>
+          <Grid item xs={12} sm={6} md={4} mb={4}>
+            <Link href="/" sx={linkStyle}>
+              <Card sx={{ ...cardStyle }}>
+                <CardMedia>
+                  <Image
+                    src="/point3.png"
+                    alt="Point 3"
+                    width={300}
+                    height={300}
+                  />
+                </CardMedia>
+                <CardContent>
+                  <Typography
+                    variant="h6"
+                    component="p"
+                    sx={{
+                      textAlign: 'center',
+                      mb: 1.5,
+                      color: '#3f51b5',
+                      fontSize: { xs: '16px', md: '18px' },
+                    }}
+                  >
+                    熱中症セルフチェック
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    component="p"
+                    sx={{
+                      textAlign: 'left',
+                      color: 'black',
+                      fontSize: { xs: '12px', md: '14px' },
+                      lineHeight: '1.5',
+                    }}
+                  >
+                    熱中症の初期症状を早期発見するためのセルフチェック
+                  </Typography>
+                  <Box sx={{ textAlign: 'center' }}>
+                    <Button sx={actionButtonStyle}>詳細を見る</Button>
+                  </Box>
+                </CardContent>
+              </Card>
+            </Link>
           </Grid>
-          <Grid item xs={12} md={4} mb={4}>
-            <Card sx={{ ...cardStyle }}>
-              <CardMedia>
-                <Image
-                  src="/point3.png"
-                  alt="Point 3"
-                  width={300}
-                  height={300}
-                />
-              </CardMedia>
-              <CardContent>
-                <Typography
-                  variant="h6"
-                  component="p"
-                  sx={{ textAlign: 'center', mb: 2, color: '#3f51b5' }}
-                >
-                  \ P O I N T 5 /
-                </Typography>
-                <Typography
-                  variant="body1"
-                  component="p"
-                  sx={{ textAlign: 'left', color: 'black' }}
-                >
-                  熱中症かなと思ったら？
-                </Typography>
-              </CardContent>
-            </Card>
+          <Grid item xs={12} sm={6} md={4} mb={4}>
+            <Link href="/" sx={linkStyle}>
+              <Card sx={{ ...cardStyle }}>
+                <CardMedia>
+                  <Image
+                    src="/point3.png"
+                    alt="Point 3"
+                    width={300}
+                    height={300}
+                  />
+                </CardMedia>
+                <CardContent>
+                  <Typography
+                    variant="h6"
+                    component="p"
+                    sx={{
+                      textAlign: 'center',
+                      mb: 1.5,
+                      color: '#3f51b5',
+                      fontSize: { xs: '16px', md: '18px' },
+                    }}
+                  >
+                    緊急連絡先と対処法
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    component="p"
+                    sx={{
+                      textAlign: 'left',
+                      color: 'black',
+                      fontSize: { xs: '12px', md: '14px' },
+                      lineHeight: '1.5',
+                    }}
+                  >
+                    緊急時の連絡先と適切な対応方法を提供します
+                  </Typography>
+                  <Box sx={{ textAlign: 'center' }}>
+                    <Button sx={actionButtonStyle}>詳細を見る</Button>
+                  </Box>
+                </CardContent>
+              </Card>
+            </Link>
           </Grid>
-          <Grid item xs={12} md={4} mb={4}>
-            <Card sx={{ ...cardStyle }}>
-              <CardMedia>
-                <Image
-                  src="/point3.png"
-                  alt="Point 3"
-                  width={300}
-                  height={300}
-                />
-              </CardMedia>
-              <CardContent>
-                <Typography
-                  variant="h6"
-                  component="p"
-                  sx={{ textAlign: 'center', mb: 2, color: '#3f51b5' }}
-                >
-                  \ P O I N T 6 /
-                </Typography>
-                <Typography
-                  variant="body1"
-                  component="p"
-                  sx={{ textAlign: 'left', color: 'black' }}
-                >
-                  救急を呼ぶとき
-                </Typography>
-              </CardContent>
-            </Card>
+          <Grid item xs={12} sm={6} md={4} mb={4}>
+            <Link
+              href="https://www.city.mitaka.lg.jp/c_event/109/109935.html"
+              sx={linkStyle}
+            >
+              <Card sx={{ ...cardStyle }}>
+                <CardMedia>
+                  <Image
+                    src="/point3.png"
+                    alt="Point 3"
+                    width={300}
+                    height={300}
+                  />
+                </CardMedia>
+                <CardContent>
+                  <Typography
+                    variant="h6"
+                    component="p"
+                    sx={{
+                      textAlign: 'center',
+                      mb: 1.5,
+                      color: '#3f51b5',
+                      fontSize: { xs: '16px', md: '18px' },
+                    }}
+                  >
+                    イベント情報
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    component="p"
+                    sx={{
+                      textAlign: 'left',
+                      color: 'black',
+                      fontSize: { xs: '12px', md: '14px' },
+                      lineHeight: '1.5',
+                    }}
+                  >
+                    暑さ対策に関する各種イベント情報を案内します
+                  </Typography>
+                  <Box sx={{ textAlign: 'center' }}>
+                    <Button sx={actionButtonStyle}>詳細を見る</Button>
+                  </Box>
+                </CardContent>
+              </Card>
+            </Link>
           </Grid>
         </Grid>
       </Box>
-
-      {/* <Box sx={{ textAlign: 'center', mt: 10 }}>
-        <Typography variant="h6" component="p">
-          \ S E A R C H /
-        </Typography>
-      </Box>
-
-      <Box sx={{ textAlign: 'center', mt: 4 }}>
-        <CoolingshelterProvider>
-          <WaterserverProvider>
-            <AddMarkersContainer map={map} />
-          </WaterserverProvider>
-        </CoolingshelterProvider>
-        <Box id="map" style={{ height: '80vh', width: '100%' }}></Box>
-      </Box> */}
     </Container>
   )
 }

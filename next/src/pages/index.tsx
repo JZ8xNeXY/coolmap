@@ -22,7 +22,7 @@ const Index: NextPage = () => {
     null,
   )
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [weather, setWeather] = useState<any>(null)
+  const [, setWeather] = useState<any>(null)
   const [data, setData] = useState({ wbgtIndex: null, targetDate: null })
   const [loading, setLoading] = useState(true)
 
@@ -73,51 +73,17 @@ const Index: NextPage = () => {
       }}
     >
       <Box mt={4} sx={{ textAlign: 'center' }}>
-        <Paper
-          elevation={3}
-          sx={{
-            display: 'inline-block',
-            padding: '1rem 2rem',
-            backgroundColor: '#ff7043',
-            color: '#ffffff',
-            borderRadius: '1rem',
-            boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)',
-            textAlign: 'center',
-          }}
-        >
-          <WarningIcon
-            sx={{
-              fontSize: 40,
-              verticalAlign: 'middle',
-              marginRight: '0.5rem',
-            }}
-          />
-          <Typography
-            variant="h5"
-            sx={{
-              fontWeight: 'bold',
-              display: 'inline-block',
-              verticalAlign: 'middle',
-            }}
-          >
-            暑さ指数：{data.wbgtIndex}
-          </Typography>
-        </Paper>
-        {data.wbgtIndex === '危険 熱中症の危険性が高まっています' && (
+        <Box mb={2}>
           <Paper
             elevation={3}
             sx={{
               display: 'inline-block',
-              marginTop: '1rem',
               padding: '1rem 2rem',
-              backgroundColor: '#C801FF',
-              color: '#000000',
+              backgroundColor: '#ff7043',
+              color: '#ffffff',
               borderRadius: '1rem',
-              border: '2px solid white',
-              WebkitTextStroke: '1px white',
-              fontWeight: 'bold',
-              textAlign: 'center',
               boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)',
+              textAlign: 'center',
             }}
           >
             <WarningIcon
@@ -135,12 +101,49 @@ const Index: NextPage = () => {
                 verticalAlign: 'middle',
               }}
             >
-              熱中症警戒アラート発表中
+              暑さ指数：{data.wbgtIndex}
             </Typography>
           </Paper>
+        </Box>
+
+        {data.wbgtIndex === '危険 熱中症の危険性が高まっています' && (
+          <Box mt={2}>
+            <Paper
+              elevation={3}
+              sx={{
+                display: 'inline-block',
+                marginTop: '1rem',
+                padding: '1rem 2rem',
+                backgroundColor: '#800080', // 背景色をダークパープルに変更
+                color: '#ffffff', // テキストを白に
+                borderRadius: '1rem',
+                fontWeight: 'bold',
+                textAlign: 'center',
+                boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)',
+              }}
+            >
+              <WarningIcon
+                sx={{
+                  fontSize: 40,
+                  verticalAlign: 'middle',
+                  marginRight: '0.5rem',
+                }}
+              />
+              <Typography
+                variant="h5"
+                sx={{
+                  fontWeight: 'bold',
+                  display: 'inline-block',
+                  verticalAlign: 'middle',
+                }}
+              >
+                熱中症警戒アラート発表中
+              </Typography>
+            </Paper>
+          </Box>
         )}
       </Box>
-      <Box mb={4} sx={{ textAlign: 'center' }}>
+      {/* <Box mb={4} sx={{ textAlign: 'center' }}>
         <Typography
           variant="h3"
           gutterBottom
@@ -242,8 +245,8 @@ const Index: NextPage = () => {
               </Grid>
             ))}
         </Grid>
-      </Box>
-      <Box mb={4} sx={{ textAlign: 'center' }}>
+      </Box> */}
+      <Box sx={{ mb: '4', textAlign: 'center' }}>
         <Typography
           variant="h3"
           gutterBottom
@@ -253,6 +256,7 @@ const Index: NextPage = () => {
             marginBottom: '2rem',
             textTransform: 'uppercase',
             letterSpacing: '2px',
+            marginTop: '30px',
           }}
         >
           市内休憩所情報
@@ -281,7 +285,7 @@ const Index: NextPage = () => {
           boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)',
         }}
       ></Box>
-      <Box mb={4} sx={{ textAlign: 'center' }}>
+      {/* <Box mb={4} sx={{ textAlign: 'center' }}>
         <Typography
           variant="h3"
           gutterBottom
@@ -339,7 +343,7 @@ const Index: NextPage = () => {
             </Typography>
           </Box>
         </Link>
-      </Box>
+      </Box> */}
     </Container>
   )
 }
