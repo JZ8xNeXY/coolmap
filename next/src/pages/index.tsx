@@ -145,6 +145,7 @@ const Index: NextPage = () => {
               variant="h5"
               sx={{
                 fontWeight: 'bold',
+                fontSize: { xs: '1.25rem', sm: '1.5rem', md: '2rem' },
                 display: 'inline-block',
                 verticalAlign: 'middle',
               }}
@@ -161,7 +162,7 @@ const Index: NextPage = () => {
               sx={{
                 display: 'inline-block',
                 marginTop: '1rem',
-                padding: '1rem 2rem',
+                padding: '1rem 1.5rem',
                 backgroundColor: '#800080', // 背景色をダークパープルに変更
                 color: '#ffffff', // テキストを白に
                 borderRadius: '1rem',
@@ -178,9 +179,10 @@ const Index: NextPage = () => {
                 }}
               />
               <Typography
-                variant="h5"
+                variant="h6"
                 sx={{
                   fontWeight: 'bold',
+                  fontSize: { xs: '1.25rem', sm: '1.5rem', md: '2rem' },
                   display: 'inline-block',
                   verticalAlign: 'middle',
                 }}

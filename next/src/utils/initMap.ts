@@ -7,7 +7,7 @@ export const initMap = async (
 
   if (mapElement) {
     const map = new google.maps.Map(mapElement, {
-      zoom: 16,
+      zoom: 18,
       mapId: 'DEMO_MAP_ID',
       maxZoom: 25,
       center: { lat: 35.681236, lng: 139.767125 },

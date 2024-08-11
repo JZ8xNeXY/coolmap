@@ -107,7 +107,7 @@ const OutdoorCoolingTips: NextPage = () => {
             elevation={3}
             sx={{
               display: 'inline-block',
-              padding: '1rem 2rem',
+              padding: '1rem 1rem',
               backgroundColor: '#ff7043',
               color: '#ffffff',
               borderRadius: '1rem',
@@ -126,6 +126,7 @@ const OutdoorCoolingTips: NextPage = () => {
               variant="h5"
               sx={{
                 fontWeight: 'bold',
+                fontSize: { xs: '1.25rem', sm: '1.5rem', md: '2rem' }, // レスポンシブ対応
                 display: 'inline-block',
                 verticalAlign: 'middle',
               }}
@@ -142,7 +143,7 @@ const OutdoorCoolingTips: NextPage = () => {
               sx={{
                 display: 'inline-block',
                 marginTop: '1rem',
-                padding: '1rem 2rem',
+                padding: '1rem 0.65rem',
                 backgroundColor: '#800080', // 背景色をダークパープルに変更
                 color: '#ffffff', // テキストを白に
                 borderRadius: '1rem',
@@ -159,9 +160,10 @@ const OutdoorCoolingTips: NextPage = () => {
                 }}
               />
               <Typography
-                variant="h5"
+                variant="h6"
                 sx={{
                   fontWeight: 'bold',
+                  fontSize: { xs: '1.25rem', sm: '1.5rem', md: '2rem' },
                   display: 'inline-block',
                   verticalAlign: 'middle',
                 }}
@@ -178,11 +180,13 @@ const OutdoorCoolingTips: NextPage = () => {
           gutterBottom
           sx={{
             fontWeight: 'bold',
-            color: '#000000',
+            color: '#333',
             marginBottom: '2rem',
             textTransform: 'uppercase',
-            letterSpacing: '2px',
+            letterSpacing: '1px',
             marginTop: '100px',
+            textShadow: '1px 1px 3px rgba(0, 0, 0, 0.2)',
+            fontSize: { xs: '2rem', sm: '2rem', md: '3rem' },
           }}
         >
           外でできる暑さ対策
@@ -391,11 +395,13 @@ const OutdoorCoolingTips: NextPage = () => {
           gutterBottom
           sx={{
             fontWeight: 'bold',
-            color: '#000000',
+            color: '#333',
             marginBottom: '2rem',
             textTransform: 'uppercase',
-            letterSpacing: '2px',
+            letterSpacing: '1px',
             marginTop: '100px',
+            textShadow: '1px 1px 3px rgba(0, 0, 0, 0.2)',
+            fontSize: { xs: '2rem', sm: '2em', md: '3rem' },
           }}
         >
           休憩所情報
@@ -405,10 +411,13 @@ const OutdoorCoolingTips: NextPage = () => {
           gutterBottom
           sx={{
             fontWeight: 'bold',
-            color: '#000000',
+            color: '#333',
             marginBottom: '2rem',
             textTransform: 'uppercase',
-            letterSpacing: '2px',
+            letterSpacing: '1px',
+            marginTop: '10px',
+            textShadow: '1px 1px 3px rgba(0, 0, 0, 0.2)',
+            fontSize: { xs: '1.5rem', sm: '1.5rem', md: '2.5rem' },
           }}
         >
           休憩所として市内の公共施設にお立ち寄りください
@@ -437,6 +446,114 @@ const OutdoorCoolingTips: NextPage = () => {
           boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)',
         }}
       ></Box>
+      <Box
+        sx={{
+          display: 'flex',
+          color: 'black',
+          fontSize: '3rem',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginTop: '1rem',
+          backgroundColor: '#f5f5f5',
+          borderRadius: '0.5rem',
+          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            marginRight: { xs: '0.25rem', sm: '1rem', md: '1rem' },
+          }}
+        >
+          <Box
+            sx={{
+              width: { xs: 45, sm: 55, md: 80 }, // レスポンシブ対応の幅
+              height: { xs: 45, sm: 55, md: 80 }, // レスポンシブ対応の高さ
+              position: 'relative', // レスポンシブImageのために必要
+            }}
+          >
+            <Image
+              src="/userposition.png"
+              alt="ウォーターサーバー"
+              layout="fill" // 親ボックスに合わせて画像をリサイズ
+              objectFit="contain" // 画像のアスペクト比を保ちながらリサイズ
+            />
+          </Box>
+          <Typography
+            variant="body1"
+            sx={{
+              fontSize: { xs: '0.75rem', sm: '1rem', md: '1.25rem' },
+            }}
+          >
+            現在地
+          </Typography>
+        </Box>
+
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            marginRight: { xs: '0.25rem', sm: '1rem', md: '1rem' },
+          }}
+        >
+          <Box
+            sx={{
+              width: { xs: 40, sm: 50, md: 75 }, // レスポンシブ対応の幅
+              height: { xs: 40, sm: 50, md: 75 }, // レスポンシブ対応の高さ
+              position: 'relative', // レスポンシブImageのために必要
+            }}
+          >
+            <Image
+              src="/coolingshelter.png"
+              alt="ウォーターサーバー"
+              layout="fill" // 親ボックスに合わせて画像をリサイズ
+              objectFit="contain" // 画像のアスペクト比を保ちながらリサイズ
+            />
+          </Box>
+          <Typography
+            variant="body1"
+            sx={{
+              fontSize: { xs: '0.75rem', sm: '1rem', md: '1.25rem' },
+            }}
+          >
+            休憩所
+          </Typography>
+        </Box>
+
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            marginRight: { xs: '0.25rem', sm: '1rem', md: '1rem' },
+          }}
+        >
+          <Box
+            sx={{
+              width: { xs: 40, sm: 50, md: 75 }, // レスポンシブ対応の幅
+              height: { xs: 40, sm: 50, md: 75 }, // レスポンシブ対応の高さ
+              position: 'relative', // レスポンシブImageのために必要
+            }}
+          >
+            <Image
+              src="/waterserver.png"
+              alt="ウォーターサーバー"
+              layout="fill" // 親ボックスに合わせて画像をリサイズ
+              objectFit="contain" // 画像のアスペクト比を保ちながらリサイズ
+            />
+          </Box>
+          <Typography
+            variant="body1"
+            sx={{
+              fontSize: { xs: '0.65rem', sm: '1rem', md: '1.25rem' },
+            }}
+          >
+            ウォーターサーバー
+          </Typography>
+        </Box>
+
+        {/* 他のアイコンの説明もここに追加 */}
+      </Box>
       {/* <Box mb={4} sx={{ textAlign: 'center' }}>
         <Typography
           variant="h3"
