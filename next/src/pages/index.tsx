@@ -27,7 +27,26 @@ const bannerStyle = {
   borderRadius: '8px',
   marginBottom: '30px',
   position: 'relative',
-  height: '400px', // バナーの高さを設定
+  height: '400px',
+}
+
+const textStyle = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  zIndex: 1,
+  fontSize: '100pt', // デフォルトのフォントサイズ
+  '@media (max-width: 1000px)': {
+    fontSize: '60pt', // タブレット用のフォントサイズ
+  },
+  '@media (max-width: 500px)': {
+    fontSize: '36pt', // スマホ用のフォントサイズ
+  },
+  fontWeight: 'bold',
+  textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
+  lineHeight: 1.2,
+  whiteSpace: 'nowrap',
 }
 
 const descriptionStyle = {
@@ -94,7 +113,12 @@ const Index: NextPage = () => {
       sx={{ px: { xs: 2, md: 4 }, mt: { xs: 4, md: 6 } }}
     >
       {/* バナー */}
-      <Box sx={bannerStyle}></Box>
+      <Box sx={bannerStyle}>
+        <Typography sx={textStyle}>
+          <span style={{ color: 'yellow' }}>熱中症対策</span>
+          <span style={{ color: 'white' }}>紹介</span>
+        </Typography>
+      </Box>
 
       <Box mt={4} sx={{ textAlign: 'center' }}>
         <Box mb={2}>
@@ -130,7 +154,7 @@ const Index: NextPage = () => {
           </Paper>
         </Box>
 
-        {data.wbgtIndex === '危険 熱中症の危険性が高まっています' && (
+        {data.wbgtIndex === '危険' && (
           <Box mt={2}>
             <Paper
               elevation={3}

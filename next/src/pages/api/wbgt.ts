@@ -28,8 +28,29 @@ export default async function handler(req: any, res: any) {
     const listWbgt = data.split('\n').map((line: string) => line.split(','))
 
     const currentHour = moment.tz('Asia/Tokyo').hour()
-    const targetDate = currentHour < 12 ? today : tomorrow
-    const targetTime = currentHour < 12 ? `${today}12` : `${tomorrow}12`
+    console.log(`${today}15`)
+    console.log(currentHour)
+    let targetDate = today // ここをletに変更
+    let targetTime = ''
+
+    if (currentHour >= 0 && currentHour < 3) {
+      targetDate = tomorrow
+      targetTime = `${tomorrow}03`
+    } else if (currentHour >= 3 && currentHour < 6) {
+      targetTime = `${today}06`
+    } else if (currentHour >= 6 && currentHour < 9) {
+      targetTime = `${today}09`
+    } else if (currentHour >= 9 && currentHour < 12) {
+      targetTime = `${today}12`
+    } else if (currentHour >= 12 && currentHour < 15) {
+      targetTime = `${today}15`
+    } else if (currentHour >= 15 && currentHour < 18) {
+      targetTime = `${today}18`
+    } else if (currentHour >= 18 && currentHour < 21) {
+      targetTime = `${today}21`
+    } else if (currentHour >= 21 && currentHour <= 23) {
+      targetTime = `${today}24`
+    }
 
     let targetColumn: number | null = null
     for (let col = 0; col < listWbgt[0].length; col++) {
@@ -57,7 +78,7 @@ export default async function handler(req: any, res: any) {
         } else if (wbgt < 31 * 10) {
           wbgtIndex = '厳重警戒'
         } else {
-          wbgtIndex = '危険 熱中症の危険性が高まっています'
+          wbgtIndex = '危険'
         }
         break
       }
