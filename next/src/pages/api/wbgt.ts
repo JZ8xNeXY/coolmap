@@ -13,7 +13,7 @@ export default async function handler(req: any, res: any) {
   const today = moment.tz('Asia/Tokyo').format('YYYYMMDD')
   const tomorrow = moment.tz('Asia/Tokyo').add(1, 'day').format('YYYYMMDD')
 
-  const AREA_CODE_TOKYO = '44116' // 東京の地点コード
+  const AREA_CODE_TOKYO = '44116' // 府中の地点コード
   const AREA_CODE_ALL = 'tokyo' // 東京圏内全体
 
   try {
@@ -97,7 +97,7 @@ export default async function handler(req: any, res: any) {
     let wbgtIndex = 'データ取得エラー'
     let alert = false
 
-    // 東京地点のWBGTインデックスを取得
+    // 府中地点のWBGTインデックスを取得
     for (let i = 1; i < listWbgtTokyo.length; i++) {
       if (listWbgtTokyo[i][0] === AREA_CODE_TOKYO) {
         const wbgt = parseInt(listWbgtTokyo[i][targetColumn], 10)
