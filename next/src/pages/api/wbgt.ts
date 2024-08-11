@@ -13,7 +13,7 @@ export default async function handler(req: any, res: any) {
   const today = moment.tz('Asia/Tokyo').format('YYYYMMDD')
   const tomorrow = moment.tz('Asia/Tokyo').add(1, 'day').format('YYYYMMDD')
 
-  const AREA_CODE_TOKYO = '44132' // 東京の地点コード
+  const AREA_CODE_TOKYO = '44116' // 東京の地点コード
   const AREA_CODE_ALL = 'tokyo' // 東京圏内全体
 
   try {
