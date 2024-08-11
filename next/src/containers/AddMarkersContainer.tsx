@@ -105,16 +105,53 @@ const AddMarkersContainer: NextPage<AddMarkersProps> = ({ map }) => {
         markersRef.current.forEach((marker) => (marker.map = null))
         markersRef.current = []
 
-        const coolingshelters: Coolingshelter[] = coolingsheltersData
-          ? camelcaseKeys(coolingsheltersData)
-          : []
         const waterservers: Waterserver[] = waterserversData
           ? camelcaseKeys(waterserversData)
+          : []
+
+        const coolingshelters: Coolingshelter[] = coolingsheltersData
+          ? camelcaseKeys(coolingsheltersData)
           : []
 
         const { AdvancedMarkerElement } = (await google.maps.importLibrary(
           'marker',
         )) as google.maps.MarkerLibrary
+
+        waterservers.forEach((waterserver) => {
+          const waterserverImg = document.createElement('img')
+          waterserverImg.src = '/waterserver.png'
+          waterserverImg.alt = waterserver.name
+          waterserverImg.width = 60
+          waterserverImg.height = 75
+          waterserverImg.style.zIndex = '5'
+
+          const waterserverMarker = new AdvancedMarkerElement({
+            map,
+            position: {
+              lat: waterserver.latitude,
+              lng: waterserver.longitude,
+            },
+            title: waterserver.name,
+            content: waterserverImg,
+          })
+
+          waterserverMarker.addListener('gmp-click', function () {
+            setOpenWaterserverModal(true)
+            setSelectedWaterserver({
+              id: waterserver.id,
+              name: waterserver.name,
+              address: waterserver.address,
+              place: waterserver.place,
+              latitude: waterserver.latitude,
+              longitude: waterserver.longitude,
+              spoutType: waterserver.spoutType,
+              bottleDispenserType: waterserver.bottleDispenserType,
+              image: waterserver.image,
+            })
+          })
+
+          markersRef.current.push(waterserverMarker)
+        })
 
         coolingshelters.forEach((coolingshelter) => {
           const coolingshelterImg = document.createElement('img')
@@ -122,6 +159,7 @@ const AddMarkersContainer: NextPage<AddMarkersProps> = ({ map }) => {
           coolingshelterImg.alt = coolingshelter.name
           coolingshelterImg.width = 75
           coolingshelterImg.height = 75
+          coolingshelterImg.style.zIndex = '10'
 
           const coolingshelterMarker = new AdvancedMarkerElement({
             map,
@@ -156,41 +194,6 @@ const AddMarkersContainer: NextPage<AddMarkersProps> = ({ map }) => {
 
           markersRef.current.push(coolingshelterMarker)
         })
-
-        waterservers.forEach((waterserver) => {
-          const waterserverImg = document.createElement('img')
-          waterserverImg.src = '/waterserver.png'
-          waterserverImg.alt = waterserver.name
-          waterserverImg.width = 75
-          waterserverImg.height = 75
-
-          const waterserverMarker = new AdvancedMarkerElement({
-            map,
-            position: {
-              lat: waterserver.latitude,
-              lng: waterserver.longitude,
-            },
-            title: waterserver.name,
-            content: waterserverImg,
-          })
-
-          waterserverMarker.addListener('gmp-click', function () {
-            setOpenWaterserverModal(true)
-            setSelectedWaterserver({
-              id: waterserver.id,
-              name: waterserver.name,
-              address: waterserver.address,
-              place: waterserver.place,
-              latitude: waterserver.latitude,
-              longitude: waterserver.longitude,
-              spoutType: waterserver.spoutType,
-              bottleDispenserType: waterserver.bottleDispenserType,
-              image: waterserver.image,
-            })
-          })
-
-          markersRef.current.push(waterserverMarker)
-        })
       }
     }
 
@@ -199,8 +202,8 @@ const AddMarkersContainer: NextPage<AddMarkersProps> = ({ map }) => {
     }
   }, [
     map,
-    coolingsheltersData,
     waterserversData,
+    coolingsheltersData,
     setSelectedCoolingshelter,
     setSelectedWaterserver,
   ])

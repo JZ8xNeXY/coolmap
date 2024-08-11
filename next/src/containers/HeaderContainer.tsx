@@ -28,7 +28,7 @@ const HeaderContainer = () => {
 
   const DrawerMenuItems = [
     { text: 'TOP', href: '/' },
-    { text: '紹介', href: '/about' },
+    { text: '外でできる暑さ対策', href: '/outdoorcoolingtips' },
     {
       text: 'お問い合わせ',
       href: 'https://docs.google.com/forms/d/e/1FAIpQLSdZwE2uS1wUDa9NQyJU8yIpv_Qq04WzVAZm5CxNnLrVLtuLKg/viewform',
