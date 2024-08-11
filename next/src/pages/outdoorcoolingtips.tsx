@@ -52,7 +52,7 @@ const OutdoorCoolingTips: NextPage = () => {
   )
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [, setWeather] = useState<any>(null)
-  const [data, setData] = useState({ wbgtIndex: null, targetDate: null })
+  const [data, setData] = useState({ wbgtIndex: null, alert: null })
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -135,7 +135,7 @@ const OutdoorCoolingTips: NextPage = () => {
           </Paper>
         </Box>
 
-        {data.wbgtIndex === '危険 熱中症の危険性が高まっています' && (
+        {data.alert == true && (
           <Box mt={2}>
             <Paper
               elevation={3}
