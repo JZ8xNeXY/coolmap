@@ -92,7 +92,7 @@ const actionButtonStyle = {
 }
 
 const Index: NextPage = () => {
-  const [data, setData] = useState({ wbgtIndex: null, targetDate: null })
+  const [data, setData] = useState({ wbgtIndex: null, alert: null })
 
   useEffect(() => {
     const fetchData = async () => {
@@ -154,7 +154,7 @@ const Index: NextPage = () => {
           </Paper>
         </Box>
 
-        {data.wbgtIndex === '危険' && (
+        {data.alert === true && (
           <Box mt={2}>
             <Paper
               elevation={3}

@@ -13,28 +13,58 @@ export default async function handler(req: any, res: any) {
   const today = moment.tz('Asia/Tokyo').format('YYYYMMDD')
   const tomorrow = moment.tz('Asia/Tokyo').add(1, 'day').format('YYYYMMDD')
 
-  const AREA_CODE = '44132' // 東京の地点コード
+  const AREA_CODE_TOKYO = '44132' // 東京の地点コード
+  const AREA_CODE_ALL = 'tokyo' // 東京圏内全体
 
   try {
-    const response = await axios.get(
-      `https://www.wbgt.env.go.jp/prev15WG/dl/yohou_${AREA_CODE}.csv`,
+    // 東京地点のWBGTデータを取得
+    const responseTokyo = await axios.get(
+      `https://www.wbgt.env.go.jp/prev15WG/dl/yohou_${AREA_CODE_TOKYO}.csv`,
       {
         responseType: 'arraybuffer',
         httpsAgent,
       },
     )
 
-    const data = Buffer.from(response.data, 'binary').toString('utf-8')
-    const listWbgt = data.split('\n').map((line: string) => line.split(','))
+    const dataTokyo = Buffer.from(responseTokyo.data, 'binary').toString(
+      'utf-8',
+    )
+    const listWbgtTokyo = dataTokyo
+      .split('\n')
+      .map((line: string) => line.split(','))
+
+    // 東京圏内全体のWBGTデータを取得
+    const responseAll = await axios.get(
+      `https://www.wbgt.env.go.jp/prev15WG/dl/yohou_${AREA_CODE_ALL}.csv`,
+      {
+        responseType: 'arraybuffer',
+        httpsAgent,
+      },
+    )
+
+    const dataAll = Buffer.from(responseAll.data, 'binary').toString('utf-8')
+    let listWbgtAll = dataAll.split('\n').map((line: string) => line.split(','))
+
+    const tomorrowEndTime = `${tomorrow}24`
+
+    const targetIndices = listWbgtAll[0].reduce(
+      (indices: number[], colName: string, index: number) => {
+        if (colName <= tomorrowEndTime) {
+          indices.push(index)
+        }
+        return indices
+      },
+      [],
+    )
+
+    listWbgtAll = listWbgtAll.map((row) =>
+      targetIndices.map((index) => row[index]),
+    )
 
     const currentHour = moment.tz('Asia/Tokyo').hour()
-    console.log(`${today}15`)
-    console.log(currentHour)
-    let targetDate = today // ここをletに変更
     let targetTime = ''
 
     if (currentHour >= 0 && currentHour < 3) {
-      targetDate = tomorrow
       targetTime = `${tomorrow}03`
     } else if (currentHour >= 3 && currentHour < 6) {
       targetTime = `${today}06`
@@ -53,8 +83,8 @@ export default async function handler(req: any, res: any) {
     }
 
     let targetColumn: number | null = null
-    for (let col = 0; col < listWbgt[0].length; col++) {
-      if (listWbgt[0][col] === targetTime) {
+    for (let col = 0; col < listWbgtTokyo[0].length; col++) {
+      if (listWbgtTokyo[0][col] === targetTime) {
         targetColumn = col
         break
       }
@@ -65,10 +95,12 @@ export default async function handler(req: any, res: any) {
     }
 
     let wbgtIndex = 'データ取得エラー'
-    for (let i = 1; i < listWbgt.length; i++) {
-      // ヘッダー行をスキップするためにi=1から開始
-      if (listWbgt[i][0] === AREA_CODE) {
-        const wbgt = parseInt(listWbgt[i][targetColumn], 10)
+    let alert = false
+
+    // 東京地点のWBGTインデックスを取得
+    for (let i = 1; i < listWbgtTokyo.length; i++) {
+      if (listWbgtTokyo[i][0] === AREA_CODE_TOKYO) {
+        const wbgt = parseInt(listWbgtTokyo[i][targetColumn], 10)
         if (wbgt < 21 * 10) {
           wbgtIndex = 'ほぼ安全'
         } else if (wbgt < 25 * 10) {
@@ -84,7 +116,19 @@ export default async function handler(req: any, res: any) {
       }
     }
 
-    res.status(200).json({ wbgtIndex, targetDate })
+    for (let i = 1; i < listWbgtAll.length; i++) {
+      for (let j = 0; j < listWbgtAll[i].length; j++) {
+        const wbgt = parseInt(listWbgtAll[i][j], 10)
+        if (wbgt >= 33 * 10) {
+          // 330 以上
+          alert = true
+          break
+        }
+      }
+      if (alert) break
+    }
+
+    res.status(200).json({ wbgtIndex, alert })
   } catch (error) {
     console.error('CSVデータの取得に失敗しました', error)
     res.status(500).json({ error: 'CSVデータの取得に失敗しました' })
