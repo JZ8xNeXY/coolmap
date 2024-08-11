@@ -417,7 +417,7 @@ const OutdoorCoolingTips: NextPage = () => {
             letterSpacing: '1px',
             marginTop: '10px',
             textShadow: '1px 1px 3px rgba(0, 0, 0, 0.2)',
-            fontSize: { xs: '1.5rem', sm: '1.5rem', md: '2.5rem' },
+            fontSize: { xs: '1.5rem', sm: '1.5rem', md: '2.0rem' },
           }}
         >
           休憩所として市内の公共施設にお立ち寄りください
