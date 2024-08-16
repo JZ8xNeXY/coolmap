@@ -31,6 +31,8 @@ https://coolingspotsfinder.com/
 <img src="https://i.gyazo.com/d319b57d0d73a8240fba30efcd515b49.jpg" width="500">
 
 # 機能③　今日の天気や気温を表示する
+<img src="https://i.gyazo.com/3ed5446d543442c4262a1d5cec60f188.png" width="500">
+
 
 # 主な使用技術
 | カテゴリー      | 使用技術                                      |

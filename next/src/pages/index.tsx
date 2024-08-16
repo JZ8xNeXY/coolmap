@@ -51,7 +51,7 @@ const textStyle = {
 
 const descriptionStyle = {
   color: 'black',
-  fontSize: { xs: '24px', md: '24px' },
+  fontSize: { xs: '18px', md: '24px' },
   lineHeight: '1.8',
   textAlign: 'center',
   maxWidth: '800px',
@@ -129,6 +129,8 @@ const Index: NextPage = () => {
       try {
         const weatherData = await getWeatherData()
         setWeather(weatherData)
+
+        console.log(weatherData)
 
         const response = await axios.get('/api/wbgt')
         setData(response.data)
@@ -278,7 +280,6 @@ const Index: NextPage = () => {
                     style={cardWeatherStyle}
                   />
                   <Typography sx={cardTextStyle}>
-                    {/* {weather.forecasts[0].image.url} */}
                     {weather?.forecasts?.[0]?.temperature?.max?.celsius
                       ? `${weather.forecasts[0].temperature.max.celsius}`
                       : 'データ取得中'}
@@ -304,7 +305,7 @@ const Index: NextPage = () => {
                     sx={{
                       textAlign: 'left',
                       color: 'black',
-                      fontSize: { xs: '12px', md: '14px' },
+                      fontSize: { xs: '14px', md: '14px' },
                       lineHeight: '1.5',
                     }}
                   >
@@ -347,7 +348,7 @@ const Index: NextPage = () => {
                     sx={{
                       textAlign: 'left',
                       color: 'black',
-                      fontSize: { xs: '12px', md: '14px' },
+                      fontSize: { xs: '14px', md: '14px' },
                       lineHeight: '1.5',
                     }}
                   >
@@ -390,7 +391,7 @@ const Index: NextPage = () => {
                     sx={{
                       textAlign: 'left',
                       color: 'black',
-                      fontSize: { xs: '12px', md: '14px' },
+                      fontSize: { xs: '14px', md: '14px' },
                       lineHeight: '1.5',
                     }}
                   >
@@ -433,7 +434,7 @@ const Index: NextPage = () => {
                     sx={{
                       textAlign: 'left',
                       color: 'black',
-                      fontSize: { xs: '12px', md: '14px' },
+                      fontSize: { xs: '14px', md: '14px' },
                       lineHeight: '1.5',
                     }}
                   >
@@ -476,7 +477,7 @@ const Index: NextPage = () => {
                     sx={{
                       textAlign: 'left',
                       color: 'black',
-                      fontSize: { xs: '12px', md: '14px' },
+                      fontSize: { xs: '14px', md: '14px' },
                       lineHeight: '1.5',
                     }}
                   >
@@ -519,7 +520,7 @@ const Index: NextPage = () => {
                     sx={{
                       textAlign: 'left',
                       color: 'black',
-                      fontSize: { xs: '12px', md: '14px' },
+                      fontSize: { xs: '14px', md: '14px' },
                       lineHeight: '1.5',
                     }}
                   >
