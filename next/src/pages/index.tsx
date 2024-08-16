@@ -122,7 +122,7 @@ const Index: NextPage = () => {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [weather, setWeather] = useState<any>(null)
-  const [loading, setLoading] = useState(true)
+  const [, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchData = async () => {
