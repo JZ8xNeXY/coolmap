@@ -14,7 +14,7 @@ import {
 import axios from 'axios'
 import type { NextPage } from 'next'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, CSSProperties } from 'react'
 import { getWeatherData } from '@/utils/weather'
 
 const bannerStyle = {
@@ -73,7 +73,7 @@ const cardStyle = {
   backgroundColor: '#f0f8ff',
 }
 
-const cardWeatherStyle = {
+const cardWeatherStyle: CSSProperties = {
   position: 'absolute',
   top: '35%',
   left: '8%',
