@@ -253,7 +253,7 @@ const Index: NextPage = () => {
             </Link>
           </Grid>
           <Grid item xs={12} sm={6} md={4} mb={4}>
-            <Link href="/" sx={linkStyle}>
+            <Link href="/indoorcoolingtips" sx={linkStyle}>
               <Card sx={{ ...cardStyle }}>
                 <CardMedia>
                   <Image
@@ -339,7 +339,7 @@ const Index: NextPage = () => {
             </Link>
           </Grid>
           <Grid item xs={12} sm={6} md={4} mb={4}>
-            <Link href="/" sx={linkStyle}>
+            <Link href="/selfcheck" sx={linkStyle}>
               <Card sx={{ ...cardStyle }}>
                 <CardMedia>
                   <Image
@@ -382,7 +382,7 @@ const Index: NextPage = () => {
             </Link>
           </Grid>
           <Grid item xs={12} sm={6} md={4} mb={4}>
-            <Link href="/" sx={linkStyle}>
+            <Link href="/firstaid" sx={linkStyle}>
               <Card sx={{ ...cardStyle }}>
                 <CardMedia>
                   <Image
@@ -425,10 +425,7 @@ const Index: NextPage = () => {
             </Link>
           </Grid>
           <Grid item xs={12} sm={6} md={4} mb={4}>
-            <Link
-              href="https://www.city.mitaka.lg.jp/c_event/109/109935.html"
-              sx={linkStyle}
-            >
+            <Link href="/event" sx={linkStyle}>
               <Card sx={{ ...cardStyle }}>
                 <CardMedia>
                   <Image

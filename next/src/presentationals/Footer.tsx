@@ -24,7 +24,7 @@ const Footer = () => {
             variant="body1"
             sx={{ textAlign: 'center', width: '100%' }}
           >
-            © 2024 涼快あんしんナビ All rights reserved.
+            © 2024 熱中症安心サポート All rights reserved.
           </Typography>
         </Box>
       </Container>

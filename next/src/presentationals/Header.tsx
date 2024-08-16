@@ -75,7 +75,7 @@ const Header: React.FC<HeaderProps> = ({
                   textDecoration: 'none',
                 }}
               >
-                涼快あんしんナビ
+                熱中症安心サポート
               </Typography>
             </Link>
           </Box>
