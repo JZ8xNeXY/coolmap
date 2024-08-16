@@ -43,7 +43,7 @@ https://coolingspotsfinder.com/
 
 その他の使用技術
 - [環境省_熱中症予防情報サイト](https://www.wbgt.env.go.jp/wbgt_data.php)より暑さ指数情報を取得しています。
-- [気象庁_全国の天気予報](hhttps://www.jma.go.jp/bosai/forecast/)より天気情報を取得しています。
+- [気象庁_全国の天気予報](https://www.jma.go.jp/bosai/forecast/)より天気情報を取得しています。
 
 # 技術選定理由
 
