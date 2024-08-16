@@ -14,8 +14,8 @@ import {
 import axios from 'axios'
 import type { NextPage } from 'next'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
-// import { getWeatherData } from '@/utils/weather'
+import { useEffect, useState, CSSProperties } from 'react'
+import { getWeatherData } from '@/utils/weather'
 
 const bannerStyle = {
   backgroundImage: 'url(/banner.png)',
@@ -51,7 +51,7 @@ const textStyle = {
 
 const descriptionStyle = {
   color: 'black',
-  fontSize: { xs: '24px', md: '24px' },
+  fontSize: { xs: '18px', md: '24px' },
   lineHeight: '1.8',
   textAlign: 'center',
   maxWidth: '800px',
@@ -71,6 +71,32 @@ const cardStyle = {
   borderRadius: '8px',
   padding: '16px',
   backgroundColor: '#f0f8ff',
+}
+
+const cardWeatherStyle: CSSProperties = {
+  position: 'absolute',
+  top: '35%',
+  left: '8%',
+}
+
+const cardTextStyle = {
+  position: 'absolute',
+  top: '56%',
+  left: '71%',
+  color: 'white',
+  transform: 'translate(-50%, -50%)',
+  zIndex: 1,
+  fontSize: '35pt', // デフォルトのフォントサイズ
+  '@media (max-width: 1000px)': {
+    fontSize: '35pt', // タブレット用のフォントサイズ
+  },
+  '@media (max-width: 500px)': {
+    fontSize: '36pt', // スマホ用のフォントサイズ
+  },
+  fontWeight: 'bold',
+  textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
+  lineHeight: 1.2,
+  whiteSpace: 'nowrap',
 }
 
 const linkStyle = {
@@ -94,18 +120,43 @@ const actionButtonStyle = {
 const Index: NextPage = () => {
   const [data, setData] = useState({ wbgtIndex: null, alert: null })
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [weather, setWeather] = useState<any>(null)
+  const [, setLoading] = useState(true)
+
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const weatherData = await getWeatherData()
+        setWeather(weatherData)
+
+        console.log(weatherData)
+
         const response = await axios.get('/api/wbgt')
         setData(response.data)
+
+        setLoading(false)
       } catch (error) {
         console.error('データ取得に失敗しました', error)
+        setLoading(false)
       }
     }
 
     fetchData()
   }, [])
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get('/api/wbgt')
+  //       setData(response.data)
+  //     } catch (error) {
+  //       console.error('データ取得に失敗しました', error)
+  //     }
+  //   }
+
+  //   fetchData()
+  // }, [])
 
   return (
     <Container
@@ -212,14 +263,29 @@ const Index: NextPage = () => {
               sx={linkStyle}
             >
               <Card sx={{ ...cardStyle }}>
-                <CardMedia>
+                <Box style={{ position: 'relative' }}>
+                  <CardMedia>
+                    <Image
+                      src="/weather.png"
+                      alt="Point 1"
+                      width={300}
+                      height={300}
+                    />
+                  </CardMedia>
                   <Image
-                    src="/weather.png"
-                    alt="Point 1"
-                    width={300}
-                    height={300}
+                    src={weather?.forecasts?.[0]?.image?.url}
+                    alt="Weather Icon"
+                    width={125}
+                    height={125}
+                    style={cardWeatherStyle}
                   />
-                </CardMedia>
+                  <Typography sx={cardTextStyle}>
+                    {weather?.forecasts?.[0]?.temperature?.max?.celsius
+                      ? `${weather.forecasts[0].temperature.max.celsius}`
+                      : 'データ取得中'}
+                    <span style={{ fontSize: '45px' }}>℃</span>
+                  </Typography>
+                </Box>
                 <CardContent>
                   <Typography
                     variant="h6"
@@ -239,7 +305,7 @@ const Index: NextPage = () => {
                     sx={{
                       textAlign: 'left',
                       color: 'black',
-                      fontSize: { xs: '12px', md: '14px' },
+                      fontSize: { xs: '14px', md: '14px' },
                       lineHeight: '1.5',
                     }}
                   >
@@ -282,7 +348,7 @@ const Index: NextPage = () => {
                     sx={{
                       textAlign: 'left',
                       color: 'black',
-                      fontSize: { xs: '12px', md: '14px' },
+                      fontSize: { xs: '14px', md: '14px' },
                       lineHeight: '1.5',
                     }}
                   >
@@ -325,7 +391,7 @@ const Index: NextPage = () => {
                     sx={{
                       textAlign: 'left',
                       color: 'black',
-                      fontSize: { xs: '12px', md: '14px' },
+                      fontSize: { xs: '14px', md: '14px' },
                       lineHeight: '1.5',
                     }}
                   >
@@ -368,11 +434,11 @@ const Index: NextPage = () => {
                     sx={{
                       textAlign: 'left',
                       color: 'black',
-                      fontSize: { xs: '12px', md: '14px' },
+                      fontSize: { xs: '14px', md: '14px' },
                       lineHeight: '1.5',
                     }}
                   >
-                    初期症状を早期発見するためのセルフチェック
+                    初期症状を発見するためのセルフチェック
                   </Typography>
                   <Box sx={{ textAlign: 'center' }}>
                     <Button sx={actionButtonStyle}>詳細を見る</Button>
@@ -411,7 +477,7 @@ const Index: NextPage = () => {
                     sx={{
                       textAlign: 'left',
                       color: 'black',
-                      fontSize: { xs: '12px', md: '14px' },
+                      fontSize: { xs: '14px', md: '14px' },
                       lineHeight: '1.5',
                     }}
                   >
@@ -454,7 +520,7 @@ const Index: NextPage = () => {
                     sx={{
                       textAlign: 'left',
                       color: 'black',
-                      fontSize: { xs: '12px', md: '14px' },
+                      fontSize: { xs: '14px', md: '14px' },
                       lineHeight: '1.5',
                     }}
                   >
