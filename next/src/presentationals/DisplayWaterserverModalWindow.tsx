@@ -2,7 +2,6 @@
 import CloseIcon from '@mui/icons-material/Close'
 import { Box, Button, Modal, Typography } from '@mui/material'
 import React from 'react'
-// import buttonStyle from '@/styles/buttonStyle'
 import changeFontSize from '@/styles/changeFontSize'
 import { nursingRoomStyle, anyoneToiletStyle } from '@/styles/facilityStyles'
 import modalStyle from '@/styles/modalStyles'
@@ -26,7 +25,6 @@ interface DisplayWaterserverModalWindowProps {
   spoutType?: boolean
   bottleDispenserType?: boolean
   image: string
-  // openEditCoolingshelterModalWindow: () => void
 }
 
 const DisplayWaterserverModalWindow: React.FC<
@@ -41,7 +39,6 @@ const DisplayWaterserverModalWindow: React.FC<
   spoutType,
   bottleDispenserType,
   image,
-  // openEditCoolingshelterModalWindow,
 }) => {
   return (
     <Modal
@@ -82,20 +79,6 @@ const DisplayWaterserverModalWindow: React.FC<
             {name ? name : 'ー'}
           </Typography>
         </Box>
-        {/* {user &&
-          (user ? (
-            <Box sx={{ display: 'flex', justifyContent: 'right', mt: 0 }}>
-              <Button
-                sx={buttonStyle}
-                onClick={() => {
-                  closeModalWindow()
-                  openEditCoolingshelterModalWindow()
-                }}
-              >
-                編集する
-              </Button>
-            </Box>
-          ) : null)} */}
         <Box sx={{ mt: 1 }}>
           <Typography variant="h6" sx={{ fontWeight: 'bold', mt: 1 }}>
             住所

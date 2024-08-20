@@ -26,8 +26,10 @@ export default function MyApp(props: MyAppProps): JSX.Element {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
 
   const router = useRouter()
+
   useEffect(() => {
     const handleRouterChange = (url: string) => {
+      console.log(url)
       gtag.pageview(url)
     }
     router.events.on('routeChangeComplete', handleRouterChange)
@@ -57,7 +59,6 @@ export default function MyApp(props: MyAppProps): JSX.Element {
       />
       <CacheProvider value={emotionCache}>
         <ThemeProvider theme={theme}>
-          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <SessionProvider>
             <CoolingshelterProvider>
               <CssBaseline />

@@ -130,8 +130,6 @@ const Index: NextPage = () => {
         const weatherData = await getWeatherData()
         setWeather(weatherData)
 
-        console.log(weatherData)
-
         const response = await axios.get('/api/wbgt')
         setData(response.data)
 
@@ -144,19 +142,6 @@ const Index: NextPage = () => {
 
     fetchData()
   }, [])
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get('/api/wbgt')
-  //       setData(response.data)
-  //     } catch (error) {
-  //       console.error('データ取得に失敗しました', error)
-  //     }
-  //   }
-
-  //   fetchData()
-  // }, [])
 
   return (
     <Container
