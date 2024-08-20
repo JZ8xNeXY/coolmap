@@ -18,7 +18,6 @@ import AddMarkersContainer from '@/containers/AddMarkersContainer'
 import { CoolingshelterProvider } from '@/context/CoolingshelterContext'
 import { SessionProvider } from '@/context/SessionContext'
 import { WaterserverProvider } from '@/context/WaterserverContext'
-import { RightClickMapHandler } from '@/utils/RightClickMapHandler'
 import { loadGoogleMapsAPI } from '@/utils/loadGoogleMapsAPI'
 import { userGeoLocation } from '@/utils/userGeoLocation'
 import { getWeatherData } from '@/utils/weather'
@@ -45,10 +44,6 @@ const linkStyle = {
 
 const OutdoorCoolingTips: NextPage = () => {
   const [map, setMap] = useState<google.maps.Map | null>(null)
-  const [openAddRestroomModal, setOpenAddRestroomModal] = useState(false)
-  const [coords, setCoords] = useState<{ lat: number; lng: number } | null>(
-    null,
-  )
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [, setWeather] = useState<any>(null)
   const [data, setData] = useState({ wbgtIndex: null, alert: null })
@@ -81,7 +76,6 @@ const OutdoorCoolingTips: NextPage = () => {
 
   useEffect(() => {
     if (map) {
-      RightClickMapHandler({ map, setMap, setOpenAddRestroomModal, setCoords })
       userGeoLocation({ map, setCurrentUserPos: () => {} })
     }
   }, [map])
@@ -445,65 +439,6 @@ const OutdoorCoolingTips: NextPage = () => {
 
         {/* 他のアイコンの説明もここに追加 */}
       </Box>
-      {/* <Box mb={4} sx={{ textAlign: 'center' }}>
-        <Typography
-          variant="h3"
-          gutterBottom
-          sx={{
-            mt: 5,
-            fontWeight: 'bold',
-            color: '#ffffff',
-            marginBottom: '2rem',
-            textTransform: 'uppercase',
-            letterSpacing: '2px',
-          }}
-        >
-          熱中症予防のために
-        </Typography>
-        <Link
-          href="https://www.city.mitaka.lg.jp/c_service/092/attached/attach_92012_1.pdf"
-          underline="hover"
-          sx={{
-            fontSize: '1.25rem',
-            color: '#ffffff',
-            textDecoration: 'underline',
-            '&:hover': {
-              color: '#80cbc4',
-            },
-          }}
-          target="_blank"
-          rel="noopener"
-        >
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <Image
-              src="/heatstroke.png"
-              alt="熱中症予防のために"
-              width={500}
-              height={750}
-              style={{ borderRadius: '1rem', marginRight: '1rem' }}
-            />
-            <Typography
-              variant="body1"
-              sx={{
-                color: '#ffffff',
-                fontWeight: 'bold',
-                fontSize: '1.25rem',
-                display: 'flex',
-                alignItems: 'center',
-              }}
-            >
-              熱中症予防のために
-              <DownloadIcon sx={{ fontSize: '1.5rem', marginLeft: '0.5rem' }} />
-            </Typography>
-          </Box>
-        </Link>
-      </Box> */}
     </Container>
   )
 }
