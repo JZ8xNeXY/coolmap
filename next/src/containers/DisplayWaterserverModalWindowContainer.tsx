@@ -1,5 +1,3 @@
-// import React, { useState } from 'react'
-// import EditRestroomContainer from './EditRestroomContainer'
 import { useSessionContext } from '@/context/SessionContext'
 import DisplayWaterserverModalWindow from '@/presentationals/DisplayWaterserverModalWindow'
 
@@ -31,16 +29,9 @@ const DisplayWaterserverModalWindowContainer: React.FC<
   image,
 }) => {
   const { currentUser } = useSessionContext()
-  // const [editModalWindow, setEditModalWindow] = useState(false)
-  // const openEditRestroomModalWindow = () => setEditModalWindow(true)
-  // const closeEditRestroomModalWindow = () => setEditModalWindow(false)
 
   return (
     <>
-      {/* <EditRestroomContainer
-        open={editModalWindow}
-        onClose={closeEditRestroomModalWindow}
-      /> */}
       <DisplayWaterserverModalWindow
         user={currentUser}
         openModalWindow={openModalWindow}
@@ -53,7 +44,6 @@ const DisplayWaterserverModalWindowContainer: React.FC<
         spoutType={spoutType}
         bottleDispenserType={bottleDispenserType}
         image={image}
-        // openEditRestroomModalWindow={openEditRestroomModalWindow}
       />
     </>
   )

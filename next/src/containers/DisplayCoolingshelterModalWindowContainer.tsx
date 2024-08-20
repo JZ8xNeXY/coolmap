@@ -1,5 +1,3 @@
-// import React, { useState } from 'react'
-// import EditRestroomContainer from './EditRestroomContainer'
 import { useSessionContext } from '@/context/SessionContext'
 import DisplayCoolingshelterModalWindow from '@/presentationals/DisplayCoolingshelterModalWindow'
 
@@ -43,16 +41,9 @@ const DisplayCoolingshelterModalWindowContainer: React.FC<
   image,
 }) => {
   const { currentUser } = useSessionContext()
-  // const [editModalWindow, setEditModalWindow] = useState(false)
-  // const openEditRestroomModalWindow = () => setEditModalWindow(true)
-  // const closeEditRestroomModalWindow = () => setEditModalWindow(false)
 
   return (
     <>
-      {/* <EditRestroomContainer
-        open={editModalWindow}
-        onClose={closeEditRestroomModalWindow}
-      /> */}
       <DisplayCoolingshelterModalWindow
         user={currentUser}
         openModalWindow={openModalWindow}
@@ -71,7 +62,6 @@ const DisplayCoolingshelterModalWindowContainer: React.FC<
         installationPlanned={installationPlanned}
         remarks={remarks}
         image={image}
-        // openEditRestroomModalWindow={openEditRestroomModalWindow}
       />
     </>
   )

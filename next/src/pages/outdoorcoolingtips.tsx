@@ -15,7 +15,6 @@ import type { NextPage } from 'next'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import AddMarkersContainer from '@/containers/AddMarkersContainer'
-import AddRestroomContainer from '@/containers/AddRestroomContainer'
 import { CoolingshelterProvider } from '@/context/CoolingshelterContext'
 import { SessionProvider } from '@/context/SessionContext'
 import { WaterserverProvider } from '@/context/WaterserverContext'
@@ -286,109 +285,6 @@ const OutdoorCoolingTips: NextPage = () => {
           </Grid>
         </Grid>
       </Box>
-      {/* <Box mb={4} sx={{ textAlign: 'center' }}>
-        <Typography
-          variant="h3"
-          gutterBottom
-          sx={{
-            mt: 5,
-            fontWeight: 'bold',
-            color: '#ffffff',
-            marginBottom: '2rem',
-            textTransform: 'uppercase',
-            letterSpacing: '2px',
-          }}
-        >
-          天気予報
-        </Typography>
-        <Grid container spacing={4}>
-          {weather?.forecasts
-            ?.slice(0, 3)
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            .map((forecast: any, index: number) => (
-              <Grid item xs={12} md={4} key={index}>
-                <Paper
-                  elevation={3}
-                  sx={{
-                    padding: '2rem',
-                    textAlign: 'center',
-                    backgroundColor: '#004d40',
-                    borderRadius: '1rem',
-                    boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)',
-                    transition:
-                      'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
-                    '&:hover': {
-                      transform: 'scale(1.05)',
-                      boxShadow: '0 8px 30px rgba(0, 0, 0, 0.4)',
-                    },
-                  }}
-                >
-                  <Box sx={{ marginBottom: '1rem' }}>
-                    <Image
-                      src={forecast.image.url}
-                      alt={forecast.image.title}
-                      width={forecast.image.width * 1.5}
-                      height={forecast.image.height * 1.5}
-                      style={{ borderRadius: '1rem' }}
-                    />
-                  </Box>
-                  <Typography
-                    variant="h6"
-                    sx={{
-                      fontWeight: 'bold',
-                      marginBottom: '1rem',
-                      color: '#e0f2f1',
-                    }}
-                  >
-                    {forecast.date}
-                  </Typography>
-                  <Typography
-                    variant="body1"
-                    sx={{ marginBottom: '0.5rem', color: '#e0f2f1' }}
-                  >
-                    最高気温：{forecast.temperature.max.celsius}度
-                  </Typography>
-                  <Typography
-                    variant="body1"
-                    sx={{ marginBottom: '0.5rem', color: '#e0f2f1' }}
-                  >
-                    最低気温：{forecast.temperature.min.celsius}度
-                  </Typography>
-                  <Typography
-                    variant="body1"
-                    sx={{ marginBottom: '0.5rem', color: '#e0f2f1' }}
-                  >
-                    降水確率:
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    sx={{ marginBottom: '0.3rem', color: '#e0f2f1' }}
-                  >
-                    0-6時：{forecast.chanceOfRain.T00_06}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    sx={{ marginBottom: '0.3rem', color: '#e0f2f1' }}
-                  >
-                    6-12時：{forecast.chanceOfRain.T06_12}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    sx={{ marginBottom: '0.3rem', color: '#e0f2f1' }}
-                  >
-                    12-18時：{forecast.chanceOfRain.T12_18}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    sx={{ marginBottom: '0.3rem', color: '#e0f2f1' }}
-                  >
-                    18-24時：{forecast.chanceOfRain.T18_24}
-                  </Typography>
-                </Paper>
-              </Grid>
-            ))}
-        </Grid>
-      </Box> */}
       <Box sx={{ mb: '4', textAlign: 'center' }}>
         <Typography
           variant="h3"
@@ -428,11 +324,6 @@ const OutdoorCoolingTips: NextPage = () => {
           <WaterserverProvider>
             <AddMarkersContainer map={map} />
           </WaterserverProvider>
-          <AddRestroomContainer
-            open={openAddRestroomModal}
-            onClose={() => setOpenAddRestroomModal(false)}
-            coords={coords}
-          />
         </CoolingshelterProvider>
       </SessionProvider>
       <Box
