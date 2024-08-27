@@ -243,10 +243,7 @@ const Index: NextPage = () => {
       <Box sx={{ mt: 8 }}>
         <Grid container spacing={4}>
           <Grid item xs={12} sm={6} md={4} mb={4}>
-            <Link
-              href="https://tenki.jp/forecast/3/16/4410/13204/3hours.html#google_vignette"
-              sx={linkStyle}
-            >
+            <Link href="/weather" sx={linkStyle}>
               <Card sx={{ ...cardStyle }}>
                 <Box style={{ position: 'relative' }}>
                   <CardMedia>
