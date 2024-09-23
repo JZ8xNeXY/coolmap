@@ -6,6 +6,7 @@
 
 # URL
 https://coolingspotsfinder.com/
+※Basic認証をかけています。
 
 # 備考
 現在開発中のため、公開準備中のページがあります。
